@@ -10,7 +10,7 @@ Personal study materials for the NUS SWE5001 Architecting Scalable Systems final
 
 | Path | What it is |
 |---|---|
-| [`book/`](book/) | **Bilingual review book** (web): 13 chapters with a quiz at the end of each (answers are collapsed; click to reveal), a question-by-question walkthrough of the three sample papers, and appendices: a cloud-service map across three providers, a Chinese–English glossary, and points from the lecturers' sessions |
+| [`book/`](book/) | **Bilingual review book** (web): an opening must-read chapter on what the lecturers said about marking and the exam, 13 chapters with a quiz at the end of each (answers are collapsed; click to reveal), a question-by-question walkthrough of the three sample papers, and appendices: a cloud-service map across three providers and a Chinese–English glossary |
 | [`handbook/`](handbook/) | **Exam handbook** (web): exam strategy → question-type cards T1–T17 → model answers for the three sample papers → English writing toolkit → study notes and common mistakes → reference data, glossary and index |
 | [`mock/`](mock/) | **Mock papers 1–2** (web): two self-written bilingual mock papers with reference answers, explanations and diagram legends |
 | `pdf/SWE5001_中英对照复习书.pdf` | Review book, print version (149 pages, all answers expanded) |
@@ -30,7 +30,7 @@ Printing: black and white, double-sided, A4.
 ## Notes
 
 - This is a personal interpretation of the course slides, sample papers and lectures, and may contain mistakes. Where it differs from the course slides, the slides take precedence.
-- Appendix C.1 of the review book ("What the Lecturers Said") is a Chinese paraphrase based on transcripts of lecture recordings, not verbatim quotes. For exam logistics, the official exam letter takes precedence.
+- The review book's "Lecturer's Tips" chapter is a Chinese paraphrase based on transcripts of lecture recordings, not verbatim quotes. For exam logistics, the official exam letter takes precedence.
 - The papers and solution in `sample-exams/` are course materials; copyright belongs to the course provider. They are shared here for study purposes only.
 - For copyright or other concerns, please contact bibi45gt@gmail.com and I will address them or take the material down promptly.
 
