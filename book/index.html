@@ -47,47 +47,77 @@ body {
   .reader-nav {
     position: fixed; inset: 0 auto 0 0; z-index: 10;
     width: 268px; height: 100vh; height: 100dvh;
-    background: #f5f7fa; border-right: 1px solid var(--line);
+    background: #fbfcfd; border-right: 1px solid #e3e8ee;
     text-align: left; font-size: 13px; line-height: 1.5;
     contain: layout paint;
   }
   .reader-ready .reader-nav { display: flex; flex-direction: column; }
   .reader-nav-head {
     display: flex; align-items: center; justify-content: space-between;
-    gap: 8px; padding: 20px 14px 16px 20px; border-bottom: 1px solid var(--line);
+    gap: 8px; padding: 16px 12px 14px 18px; border-bottom: 1px solid #e3e8ee;
   }
-  .reader-nav-title { font-size: 15px; font-weight: 700; color: #243b53; }
-  .reader-nav-subtitle { display: block; color: var(--muted); font-size: 11px; font-weight: 400; }
+  .reader-nav-title { font-size: 15px; font-weight: 700; color: #243b53; letter-spacing: .2px; }
+  .reader-nav-subtitle { display: block; color: var(--muted); font-size: 11px; font-weight: 400; letter-spacing: 0; }
   .reader-nav button {
-    display: grid; place-items: center; flex: 0 0 auto;
-    width: 30px; height: 30px; border: 1px solid transparent;
-    border-radius: 6px; background: transparent; color: #52606d;
-    cursor: pointer; font: inherit;
+    display: grid; place-items: center; flex: 0 0 auto; padding: 0;
+    border: 1px solid transparent; border-radius: 8px; background: transparent; color: #7b8794;
+    cursor: pointer; font: inherit; transition: background .15s, color .15s, border-color .15s;
   }
-  .reader-nav button:hover, .reader-nav a:hover { background: #e4ebf1; }
+  .reader-nav button svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .reader-nav button:focus-visible, .reader-nav a:focus-visible { outline: 2px solid #1d5fa6; outline-offset: -2px; }
-  .reader-nav .reader-toggle { border-color: var(--line); background: #fff; font-size: 22px; }
+  .reader-nav .reader-toggle { width: 32px; height: 32px; border-color: #dde3ea; background: #fff; color: #52606d; box-shadow: 0 1px 2px rgba(16,42,67,.06); }
+  .reader-nav .reader-toggle svg { width: 18px; height: 18px; }
+  .reader-nav .reader-toggle:hover { background: #eef4fb; border-color: #c4d4e6; color: #1d5fa6; }
+  .reader-rail-label { display: none; }
   .reader-nav-body {
-    overflow-y: auto; min-height: 0; flex: 1; padding: 12px 10px 24px;
-    overscroll-behavior: contain; scrollbar-gutter: stable;
+    overflow-y: auto; min-height: 0; flex: 1; padding: 10px 8px 24px;
+    overscroll-behavior: contain; scrollbar-gutter: stable; scrollbar-width: thin;
   }
   .reader-nav-list, .reader-nav-sections { list-style: none; margin: 0; padding: 0; }
-  .reader-nav-list > li { margin: 3px 0; }
-  .reader-nav-row { display: flex; align-items: center; border-radius: 6px; }
-  .reader-nav-row > a { flex: 1; min-width: 0; padding: 9px 10px; border-radius: 6px; font-weight: 600; }
-  .reader-nav-row > button { margin-right: 2px; }
-  .reader-nav-row > button::before { content: "›"; font-size: 19px; }
-  .reader-nav-row > button[aria-expanded="true"]::before { transform: rotate(90deg); }
-  .reader-nav-sections { margin: 2px 0 10px 11px; border-left: 1px solid #cbd5df; }
-  .reader-nav-sections a { display: block; margin: 2px 0 2px 5px; padding: 6px 8px; border-radius: 4px; color: #52606d; font-size: 12px; }
-  .reader-nav a[aria-current="location"] { color: #154679; background: #e2edf8; }
-  .reader-nav-row.pri-must { background: #fbe4ea; box-shadow: inset 3px 0 0 #b3123f; }
-  .reader-nav-row.pri-key { background: #fff3d6; box-shadow: inset 3px 0 0 #c98a00; }
-  .reader-nav .pri { font-size: 10.5px; vertical-align: 1px; }
+  .reader-nav-list > li { margin: 1px 0; }
+  .reader-nav-row { display: flex; align-items: flex-start; gap: 2px; border-radius: 8px; }
+  .reader-nav-row > a {
+    flex: 1; min-width: 0; display: grid; grid-template-columns: 24px 1fr; column-gap: 9px; align-items: start;
+    padding: 7px 8px; border-radius: 8px; color: #243b53; font-weight: 600; text-decoration: none;
+  }
+  .reader-nav-row > a:hover { background: #eef2f6; }
+  .rn-num {
+    height: 20px; margin-top: 1px; border-radius: 6px; background: #edf1f5; color: #627d98;
+    font: 700 11px/20px "Segoe UI", system-ui, sans-serif; text-align: center;
+  }
+  .rn-num.rn-dot { background: transparent; color: #9aa5b1; font-size: 14px; }
+  .rn-text { min-width: 0; }
+  .reader-nav .pri {
+    display: inline-block; margin-left: 5px; padding: 0 6px; border-radius: 999px;
+    font-size: 10px; font-weight: 600; line-height: 17px; vertical-align: 1px; white-space: nowrap;
+  }
+  .reader-nav .pri.pri-must { background: #fde4ea; color: #b3123f; }
+  .reader-nav .pri.pri-key { background: #fff1cc; color: #8a5a00; }
+  .reader-nav-row.rn-must .rn-num { background: #b3123f; color: #fff; }
+  .reader-nav-row.rn-key .rn-num { background: #f6c453; color: #5c3d00; }
+  .reader-nav-row > button { width: 26px; height: 26px; margin-top: 4px; }
+  .reader-nav-row > button:hover { background: #e6ecf2; color: #243b53; }
+  .reader-nav-row > button svg { width: 14px; height: 14px; transition: transform .18s ease; }
+  .reader-nav-row > button[aria-expanded="true"] { color: #1d5fa6; }
+  .reader-nav-row > button[aria-expanded="true"] svg { transform: rotate(90deg); }
+  .reader-nav-sections { margin: 2px 0 8px 19px; padding-left: 10px; border-left: 2px solid #e3e8ee; }
+  .reader-nav-sections a {
+    display: block; margin: 1px 0; padding: 5px 8px; border-radius: 6px;
+    color: #52606d; font-size: 12px; line-height: 1.45; text-decoration: none;
+  }
+  .reader-nav-sections a:hover { background: #eef2f6; color: #243b53; }
+  .reader-nav-row > a[aria-current="location"] { background: #e6effa; color: #154679; }
+  .reader-nav-row > a[aria-current="location"] .rn-num { background: #1d5fa6; color: #fff; }
+  .reader-nav-sections a[aria-current="location"] { background: #e6effa; color: #154679; font-weight: 600; box-shadow: -12px 0 0 -10px #1d5fa6; }
   section.pg-plan { contain-intrinsic-block-size: auto 1500px; }
-  .nav-collapsed .reader-nav { width: 52px; }
-  .nav-collapsed .reader-nav-head { justify-content: center; padding: 20px 0; border: 0; }
+  .nav-collapsed .reader-nav { width: 56px; }
+  .nav-collapsed .reader-nav-head { flex-direction: column; justify-content: flex-start; gap: 12px; padding: 14px 0; border: 0; }
   .nav-collapsed .reader-nav-title, .nav-collapsed .reader-nav-body { display: none; }
+  .nav-collapsed .reader-rail-label {
+    display: block; writing-mode: vertical-rl; letter-spacing: 4px; cursor: pointer;
+    color: #7b8794; font-size: 12px; font-weight: 600; user-select: none;
+  }
+  .nav-collapsed .reader-rail-label:hover { color: #1d5fa6; }
 }
 @media screen and (max-width: 1100px) {
   body.reader-ready { margin: 0 28px 0 264px; }
@@ -4686,9 +4716,13 @@ spec:
   nav.id = 'reader-nav';
   nav.className = 'reader-nav';
   nav.setAttribute('aria-label', '复习书导航');
+  const ICON_CLOSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 3v18"/><path d="m16 15-3-3 3-3"/></svg>';
+  const ICON_OPEN = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 3v18"/><path d="m14 9 3 3-3 3"/></svg>';
+  const ICON_CHEVRON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>';
   nav.innerHTML = '<div class="reader-nav-head">'
     + '<div class="reader-nav-title">SWE5001<span class="reader-nav-subtitle">中英对照复习书 · 目录导航</span></div>'
-    + '<button class="reader-toggle" type="button" aria-controls="reader-nav-body"></button></div>'
+    + '<button class="reader-toggle" type="button" aria-controls="reader-nav-body"></button>'
+    + '<span class="reader-rail-label" aria-hidden="true">目录</span></div>'
     + '<nav class="reader-nav-body" id="reader-nav-body" aria-label="章节与小节"><ul class="reader-nav-list"></ul></nav>';
   const list = nav.querySelector('.reader-nav-list');
   const toggle = nav.querySelector('.reader-toggle');
@@ -4711,6 +4745,21 @@ spec:
     return link;
   }
 
+  // 章节行：左侧章号（非编号页用首字），右侧标题
+  function makeChapterLink(id, num, text) {
+    const link = document.createElement('a');
+    link.href = '#' + id;
+    const badge = document.createElement('span');
+    badge.className = 'rn-num';
+    badge.textContent = num;
+    const label = document.createElement('span');
+    label.className = 'rn-text';
+    label.textContent = text;
+    link.append(badge, label);
+    allLinks.set(id, link);
+    return link;
+  }
+
   chapters.forEach(chapter => {
     const heading = chapter.querySelector('.chead h1');
     if (!heading) return;
@@ -4718,17 +4767,18 @@ spec:
     const row = document.createElement('div');
     row.className = 'reader-nav-row';
     const number = /^ch(\d+)$/.exec(chapter.id);
-    const label = (number ? '第' + Number(number[1]) + '章 ' : '') + headingText(heading);
-    const link = makeLink(chapter.id, label);
+    const title = headingText(heading);
+    const label = (number ? '第' + Number(number[1]) + '章 ' : '') + title;
+    const link = makeChapterLink(chapter.id, number ? String(Number(number[1])) : title.charAt(0), title);
     chapterLinks.set(chapter.id, link);
     // Priority tier comes from build.py (data-pri on the chapter section).
     const pri = chapter.dataset.pri;
     if (pri) {
-      row.classList.add('pri-' + pri);
+      row.classList.add('rn-' + pri);
       const badge = document.createElement('span');
       badge.className = 'pri pri-' + pri;
       badge.textContent = pri === 'must' ? '★ 必学' : '● 重点';
-      link.append(' ', badge);
+      link.querySelector('.rn-text').append(badge);
     }
     row.append(link);
     item.append(row);
@@ -4738,6 +4788,7 @@ spec:
       const expand = document.createElement('button');
       const children = document.createElement('ul');
       expand.type = 'button';
+      expand.innerHTML = ICON_CHEVRON;
       expand.setAttribute('aria-expanded', 'false');
       expand.setAttribute('aria-label', '展开或收起' + label + '的小节');
       children.id = 'reader-sections-' + chapter.id;
@@ -4763,7 +4814,7 @@ spec:
   document.body.prepend(nav);
   function setCollapsed(collapsed, remember = false) {
     document.body.classList.toggle('nav-collapsed', collapsed);
-    toggle.textContent = collapsed ? '☰' : '‹';
+    toggle.innerHTML = collapsed ? ICON_OPEN : ICON_CLOSE;
     toggle.setAttribute('aria-expanded', String(!collapsed));
     toggle.setAttribute('aria-label', collapsed ? '展开目录导航' : '收起目录导航');
     toggle.title = collapsed ? '展开目录导航' : '收起目录导航';
@@ -4779,6 +4830,7 @@ spec:
   setCollapsed(collapsed);
   document.body.classList.add('reader-ready');
   toggle.addEventListener('click', () => setCollapsed(!document.body.classList.contains('nav-collapsed'), true));
+  nav.querySelector('.reader-rail-label').addEventListener('click', () => setCollapsed(false, true));
   nav.addEventListener('keydown', event => {
     if (event.key === 'Escape') {
       setCollapsed(true, true);
@@ -4830,4 +4882,4 @@ document.querySelectorAll('.qa-t').forEach(t => t.addEventListener('click', () =
   const box = t.closest('.box.drill');
   if (box) box.classList.toggle('ans-open', open);
 }));
-</script><a class="home-fab" href="../" title="返回资料首页（复习书 · 答题手册 · 模拟卷 · 样卷）"><span aria-hidden="true">⌂</span> 资料首页</a><style>.home-fab{position:fixed;right:20px;bottom:20px;z-index:1000;display:inline-flex;align-items:center;gap:6px;padding:11px 18px;border-radius:999px;background:#1c1917;color:#fff;text-decoration:none;font:600 14px/1 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.28)}.home-fab span{font-size:17px}.home-fab:hover,.home-fab:focus-visible{background:#b45309;color:#fff}@media (max-width:600px){.home-fab{right:14px;bottom:14px;padding:10px 14px}}@media print{.home-fab{display:none}}</style></body></html>
+</script><a class="home-fab" href="../" title="返回资料首页（复习书 · 答题手册 · 模拟卷 · 样卷）"><span aria-hidden="true">⌂</span> 资料首页</a><style>.home-fab{position:fixed;right:20px;bottom:20px;z-index:1000;display:inline-flex;align-items:center;gap:6px;padding:11px 18px;border-radius:999px;background:#1c1917;color:#fff;text-decoration:none;font:600 14px/1 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.28)}.home-fab span{font-size:17px}.home-fab:hover,.home-fab:focus-visible{background:#b45309;color:#fff}@media (max-width:600px){.home-fab{right:14px;bottom:14px;padding:10px 14px}}@media print{.home-fab{display:none}}</style><a class="gh-link" href="https://github.com/bibi45c/swe5001-exam-handbook" target="_blank" rel="noopener" title="在 GitHub 查看源文件和 PDF"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a><style>.gh-link{position:fixed;top:14px;right:16px;z-index:1000;display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.94);color:#24292f;border:1px solid #d0d7de;text-decoration:none;font:600 13px/1 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.12);backdrop-filter:blur(4px)}.gh-link:hover,.gh-link:focus-visible{background:#24292f;color:#fff;border-color:#24292f}@media (max-width:600px){.gh-link{top:10px;right:10px;padding:7px}.gh-link span{display:none}}@media print{.gh-link{display:none}}</style></body></html>
