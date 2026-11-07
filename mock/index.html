@@ -1,0 +1,1305 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>SWE5001 模拟卷 1–2</title><style>
+:root { --bg:#ffffff; --fg:#1f2328; --muted:#59636e; --line:#d8dee4; --soft:#f6f8fa; --accent:#b45309; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; scroll-padding-top:64px; }
+body { margin:0; background:var(--bg); color:var(--fg);
+       font:16px/1.7 system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; }
+.top { position:sticky; top:0; z-index:5; background:rgba(255,255,255,.95); border-bottom:1px solid var(--line);
+       backdrop-filter:blur(6px); }
+.top nav { max-width:900px; margin:0 auto; padding:10px 16px; display:flex; flex-wrap:wrap; gap:6px 18px; font-size:14px; }
+.top nav b { margin-right:6px; }
+.top a { color:var(--fg); text-decoration:none; border-bottom:2px solid transparent; }
+.top a:hover { border-bottom-color:var(--accent); }
+main { max-width:900px; margin:0 auto; padding:24px 16px 96px; }
+section { padding-top:8px; border-top:3px solid var(--fg); margin-top:40px; }
+section:first-of-type { border-top:0; margin-top:0; }
+h1 { font-size:26px; line-height:1.3; } h2 { font-size:21px; margin-top:32px; } h3 { font-size:17px; margin-top:24px; }
+table { border-collapse:collapse; width:100%; margin:12px 0; font-size:14.5px; display:block; overflow-x:auto; }
+th, td { border:1px solid var(--line); padding:6px 9px; vertical-align:top; text-align:left; }
+th { background:var(--soft); }
+code { background:var(--soft); padding:1px 5px; border-radius:4px; font-size:.92em; }
+pre { background:var(--soft); border:1px solid var(--line); padding:10px 12px; overflow-x:auto; white-space:pre-wrap; }
+pre code { background:none; padding:0; }
+blockquote { margin:12px 0; padding:4px 14px; border-left:4px solid var(--accent); background:#fff8ec; }
+.fig { margin:12px 0; } .fig svg, svg { max-width:100%; height:auto; }
+.intro { color:var(--muted); font-size:15px; }
+.pbreak { display:none; }
+</style></head><body>
+<header class="top"><nav><b>SWE5001 模拟卷</b><a href="#mock1">模拟卷 1 · GreenCharge</a><a href="#mock2">模拟卷 2 · TixNow</a><a href="#answers">参考答案</a><a href="#coaching">讲解 · 失分点 · 图例</a></nav></header>
+<main><p class="intro">两套自编模拟卷，题目中英对照。建议限时 3 小时做完一套，再看参考答案和讲解。打印请用 <a href="../pdf/%E6%A8%A1%E6%8B%9F%E5%8D%B71-2_%E5%90%88%E8%AE%A2%E6%9C%AC%EF%BC%88%E4%B8%AD%E8%8B%B1%E5%AF%B9%E7%85%A7+%E7%AD%94%E6%A1%88+%E6%8A%80%E5%B7%A7+%E5%9B%BE%E4%BE%8B%EF%BC%89.pdf">PDF 合订本</a>。文中"手册 p.N"指考场答题手册 PDF 的页码。</p><section id="mock1">
+<div class="cover-q">
+<div class="ttl">SWE5001 — MOCK EXAMINATION 1（中英对照版）</div>
+<div class="sub">Architecting Scalable Systems · Case: GreenCharge EV Charging Platform<br><span class="zc">案例：GreenCharge 电动车充电平台</span></div>
+<div class="rules">Time allowed: 3 hours (plus 30 minutes reading time) · Total: 50 marks · Open book (printed materials only)<br>
+<span class="zc">考试时间 3 小时（另加 30 分钟阅读时间）· 总分 50 · 开卷（只能带纸质资料）</span><br>
+Answer ALL questions. Refer to the case study in Appendix A. Where a question asks for a diagram, draw it. State any assumption you make.<br>
+<span class="zc">回答全部题目。参考附录 A 的案例。题目要求画图的必须画图。你做的任何假设都要写出来。</span><br>
+<b>Practice paper written for self-study. It is not an official paper.</b> <span class="zc">自学用练习卷，不是官方试卷。正式考试是纯英文，先做英文版，看不懂再对照中文。</span></div>
+</div>
+
+<h2>Section A (25 marks) · A 部分（25 分）</h2>
+<p><strong>Question 1 · 第 1 题</strong></p>
+<p>Refer to the case study in Appendix A.</p>
+<p class="zh">参考附录 A 的案例。</p>
+<p><strong>(a)</strong></p>
+<p>(i) For use case UC3 (Start / Stop Charging Session), the test team plans to run a 10-minute test against the staging environment and to pass the API if the <strong>average</strong> response time is below 2 seconds. Do you agree with this pass criterion? Give <strong>one</strong> reason and propose <strong>one</strong> more reliable way to test this requirement. <strong>(2 marks)</strong></p>
+<p class="zh">(i) 对于用例 UC3（开始 / 结束充电会话），测试团队计划在预发布环境跑 10 分钟测试，只要<strong>平均</strong>响应时间低于 2 秒就判 API 通过。你同意这个通过标准吗？给出<strong>一个</strong>理由，并提出<strong>一个</strong>更可靠的测试方法。<strong>（2 分）</strong></p>
+<p>(ii) The operator dashboard (UC6, refreshed every 5 minutes) and the monthly settlement (UC7) both use the meter values sent by the charger units. A team member proposes to deliver each MeterReading to the component that computes the operator dashboard through a <strong>message queue</strong>. As the lead architect, you argue for <strong>event streaming</strong> instead. Give <strong>two</strong> reasons. <strong>(2 marks)</strong></p>
+<p class="zh">(ii) 运营商看板（UC6，每 5 分钟刷新）和月度结算（UC7）都要用充电桩发来的电表读数。一位组员提议用<strong>消息队列</strong>把每条 MeterReading 送给计算看板的组件。作为首席架构师，你主张改用<strong>事件流</strong>。给出<strong>两个</strong>理由。<strong>（2 分）</strong></p>
+<p><strong>(b)</strong> Refer to the domain model in Figure 5 of Appendix A. Answer each part independently, based on the <strong>original</strong> Figure 5. For each concern below, <strong>identify</strong> the most likely cause, <strong>propose</strong> a countermeasure by changing the domain model, and state the <strong>main drawback</strong> of your countermeasure (if any).</p>
+<p class="zh"><strong>(b)</strong> 参考附录 A 图 5 的领域模型。每一小问都<strong>以原图为准、独立作答</strong>。对下面每个问题：<strong>指出</strong>最可能的原因，<strong>提出</strong>通过修改领域模型的对策，并说明对策的<strong>主要缺点</strong>（如果有）。</p>
+<p>(i) The operations team reports that every StationManager instance uses a very large amount of runtime memory, and the memory keeps growing during the day. <strong>(5 marks)</strong></p>
+<p class="zh">(i) 运维团队报告：每个 StationManager 实例都占用大量运行内存，而且一天里内存一直在涨。<strong>（5 分）</strong></p>
+<p>(ii) Drivers complain that the charger availability shown in the Find Charger map (UC1) is often out of date; Section 4 requires availability changes to be visible within 10 seconds. <strong>(4 marks)</strong></p>
+<p class="zh">(ii) 司机抱怨"找充电桩"地图（UC1）上显示的可用状态经常过时；第 4 节要求可用状态的变化在 10 秒内可见。<strong>（4 分）</strong></p>
+<p><strong>(c)</strong> Each charger unit currently calls the following API whenever its status changes and every 30 seconds while charging:</p>
+<p class="zh"><strong>(c)</strong> 目前每台充电桩在状态变化时、以及充电期间每 30 秒，都会调用下面这个 API：</p>
+<table>
+<thead>
+<tr>
+<th>URI</th>
+<th>HTTP</th>
+<th>Input<br><span class="zc">输入</span></th>
+<th>Output<br><span class="zc">输出</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/chargers/status</td>
+<td>PUT</td>
+<td>stationId, connectorId, status, meterValue, tariff, driverId</td>
+<td>"updated" / "not updated"<br><span class="zc">"已更新" / "未更新"</span></td>
+</tr>
+</tbody>
+</table>
+<p>Before replying, the platform recomputes the availability map of the whole city. In a load test with 15,000 simulated charger units, status updates are delayed by 15 to 40 seconds. Explain the likely <strong>causes</strong> of the delay, describe how you would <strong>refactor</strong> the API, and illustrate the new design with a <strong>concrete example</strong>. <strong>(6 marks)</strong></p>
+<p class="zh">平台在回复之前，要重新计算全市的可用状态地图。在模拟 15,000 台充电桩的负载测试中，状态更新延迟了 15 到 40 秒。解释延迟的可能<strong>原因</strong>，说明你会怎样<strong>重构</strong>这个 API，并用一个<strong>具体例子</strong>展示新设计。<strong>（6 分）</strong></p>
+<p><strong>(d)</strong> Identify the <strong>two</strong> most important quality attributes for the data store that keeps charger status and meter values in Phase 1, and explain why they are more important than other quality attributes. <strong>(2 marks)</strong></p>
+<p class="zh"><strong>(d)</strong> 指出第一阶段中，保存充电桩状态和电表读数的数据存储<strong>最重要的两个</strong>质量属性，并解释为什么它们比其他质量属性更重要。<strong>（2 分）</strong></p>
+<p><strong>(e)</strong> Based on your answer to (d), propose <strong>two</strong> cloud database or storage services from one cloud provider, and explain how each helps the architecture meet those quality attributes. <strong>(4 marks)</strong></p>
+<p class="zh"><strong>(e)</strong> 根据你在 (d) 的答案，从同一家云厂商提出<strong>两个</strong>云数据库或存储服务，并解释每个服务如何帮助架构满足这些质量属性。<strong>（4 分）</strong></p>
+<h2>Section B (13 marks) · B 部分（13 分）</h2>
+<p><strong>Question 2 · 第 2 题</strong></p>
+<p><strong>(a)</strong> The team has built the backend of Phase 1 as a single monolithic application. Propose a <strong>hybrid cloud-native reference architecture</strong> for the GreenCharge backend (you may consider microservices, scheduled jobs, event- or stream-driven services and serverless functions).</p>
+<p class="zh"><strong>(a)</strong> 团队把第一阶段的后端做成了一个单体应用。请为 GreenCharge 后端提出一个<strong>混合云原生参考架构</strong>（可以考虑微服务、定时任务、事件或流驱动的服务、无服务器函数）。</p>
+<p>(i) Draw the main components and their interactions from a cloud perspective. <strong>(3 marks)</strong></p>
+<p class="zh">(i) 从云的视角画出主要组件及它们之间的交互。<strong>（3 分）</strong></p>
+<p>(ii) Apart from external calls through the API gateway, explain how the internal services communicate, and mark these communication components on your diagram. <strong>(2 marks)</strong></p>
+<p class="zh">(ii) 除了经 API 网关的外部调用，解释内部服务之间怎样通信，并在图上标出这些通信组件。<strong>（2 分）</strong></p>
+<p>(iii) Identify <strong>one</strong> service that needs to keep state and propose a suitable state-management mechanism. <strong>(1 mark)</strong></p>
+<p class="zh">(iii) 指出<strong>一个</strong>需要保存状态的服务，并提出合适的状态管理机制。<strong>（1 分）</strong></p>
+<p>(iv) Describe the overall deployment plan on Kubernetes, either as a diagram or as a short description. <strong>(2 marks)</strong></p>
+<p class="zh">(iv) 用图或简短文字描述在 Kubernetes 上的整体部署计划。<strong>（2 分）</strong></p>
+<p><strong>(b)</strong> In Phase 2, UC9 (Ask Trip Assistant) sends the driver's question to an <strong>external LLM provider API</strong>. In tests the LLM API takes 3 to 8 seconds to answer and about 2% of the calls fail. Section 4 requires the app to acknowledge each question within 2 seconds for 90% of the requests and to show the answer within 15 seconds. Propose a design for UC9 that meets these requirements, and justify <strong>two</strong> of your design decisions. <strong>(3 marks)</strong></p>
+<p class="zh"><strong>(b)</strong> 第二阶段，UC9（询问行程助手）会把司机的问题发给<strong>外部 LLM 服务商的 API</strong>。测试中 LLM API 需要 3 到 8 秒才回答，约 2% 的调用会失败。第 4 节要求：90% 的请求要在 2 秒内确认"已收到问题"，并在 15 秒内显示答案。为 UC9 提出满足这些要求的设计，并论证其中<strong>两个</strong>设计决策。<strong>（3 分）</strong></p>
+<p><strong>(c)</strong> The services will be deployed in containers. Because of a licence constraint of the container platform, two or more services must share one container instance. Services with the highest <strong>communication affinity</strong> (the number and size of messages exchanged over time) should be collocated. Based on the original Figure 5 and the use cases, propose the most suitable services to be collocated and explain the benefit. <strong>(2 marks)</strong></p>
+<p class="zh"><strong>(c)</strong> 服务将以容器部署。由于容器平台的许可证限制，两个或更多服务必须共用一个容器实例。<strong>通信亲和度</strong>最高（一段时间内交换的消息数量和大小最大）的服务应该放在一起。根据原始图 5 和用例，提出最适合放在一起的服务，并说明好处。<strong>（2 分）</strong></p>
+<h2>Section C (12 marks) · C 部分（12 分）</h2>
+<p><strong>Question 3 · 第 3 题</strong></p>
+<p><strong>(a)</strong> Refer to the domain model in Figure 5 and the logical packaging and deployment model in Figure 6 of Appendix A. <strong>Identify two</strong> undesirable architectural decisions in Figure 6, propose the corrective action for each, and explain how the decision leads to the corrective action. You may draw only the part of the diagram that is needed. <strong>(6 marks)</strong></p>
+<p class="zh"><strong>(a)</strong> 参考附录 A 图 5 的领域模型和图 6 的逻辑打包与部署模型。<strong>指出</strong>图 6 中<strong>两个</strong>不理想的架构决策，为每个提出纠正措施，并解释这个决策为什么导致这样纠正。可以只画需要的那部分图。<strong>（6 分）</strong></p>
+<p><strong>(b)</strong> The CPO administrators propose to use <strong>"the number of charging sessions per station per day"</strong> as the application metric to evaluate both the <strong>availability</strong> of the charging stations and the <strong>experience</strong> of the drivers. Do you agree? Justify your answer. If you disagree, propose <strong>two</strong> better metrics, one for each concern, and justify each of them. <strong>(4 marks)</strong></p>
+<p class="zh"><strong>(b)</strong> 运营商管理员提议用<strong>"每个充电站每天的充电会话数"</strong>作为应用指标，同时评估充电站的<strong>可用性</strong>和司机的<strong>体验</strong>。你同意吗？论证你的答案。如果不同意，提出<strong>两个</strong>更好的指标（可用性、体验各一个），并分别论证。<strong>（4 分）</strong></p>
+<p><strong>(c)</strong> The <strong>Stop Charging Session</strong> request passes through the following components <strong>in series</strong>: API gateway (99.95%), SessionManager service (99.9%), PaymentManager service (99.9%) and the external Payment Gateway (99.5%). Calculate the end-to-end availability, state whether it meets a target of 99.5%, and propose <strong>one</strong> change to the architecture that would improve it. <strong>(2 marks)</strong></p>
+<p class="zh"><strong>(c)</strong> <strong>"结束充电会话"</strong>请求<strong>串联</strong>经过以下组件：API 网关（99.95%）、SessionManager 服务（99.9%）、PaymentManager 服务（99.9%）、外部支付网关（99.5%）。计算端到端可用性，说明是否达到 99.5% 的目标，并提出<strong>一个</strong>能提高可用性的架构改动。<strong>（2 分）</strong></p>
+<div class="endp">— END OF PAPER · 试卷结束 —</div>
+
+<div class="pbreak"></div>
+
+<h1>Appendix A — Case Study: GreenCharge EV Charging Platform · 附录 A 案例：GreenCharge 电动车充电平台</h1>
+<h2>1. Background · 背景</h2>
+<p>The city's energy agency and several private <strong>charge point operators (CPOs)</strong> are building <strong>GreenCharge</strong>, a platform on which electric-vehicle (EV) drivers find, reserve, start and pay for public charging points operated by many different CPOs. Phase 1 delivers the platform with two pilot applications: the <strong>Driver mobile app</strong> and the <strong>Operator web portal</strong>. Phase 2 adds smart charging and an AI trip assistant.</p>
+<p class="zh">城市能源局和几家私营<strong>充电运营商（CPO）</strong>正在建设 <strong>GreenCharge</strong> 平台。电动车司机在上面查找、预约、启动公共充电桩并付费，这些充电桩由许多不同的运营商经营。第一阶段交付平台和两个试点应用：<strong>司机手机 App</strong> 和<strong>运营商网页门户</strong>。第二阶段增加智能充电和 AI 行程助手。</p>
+<p>Roles: <strong>Driver</strong>, <strong>CPO Admin</strong>, <strong>Platform Admin</strong>. External systems: <strong>Payment Gateway</strong>, <strong>Grid Operator Price API</strong> (publishes the electricity price every 15 minutes), <strong>LLM Provider API</strong> (Phase 2). About 15,000 <strong>charger units</strong> are installed in the city; each unit reports its status and meter values to the platform.</p>
+<p class="zh">角色：<strong>司机</strong>、<strong>运营商管理员</strong>、<strong>平台管理员</strong>。外部系统：<strong>支付网关</strong>、<strong>电网电价 API</strong>（每 15 分钟发布一次电价）、<strong>LLM 服务商 API</strong>（第二阶段）。全市约安装了 15,000 台<strong>充电桩</strong>，每台都向平台上报状态和电表读数。</p>
+<h2>2. Phases and Use Cases · 阶段与用例</h2>
+<p><strong>Phase 1 · 第一阶段</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Use case<br><span class="zc">用例</span></th>
+<th>Description<br><span class="zc">说明</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UC1</td>
+<td>Find Charger<br><span class="zc">找充电桩</span></td>
+<td>The driver views a map of nearby chargers with their availability (Available / Occupied / Faulted) and price.<br><span class="zc">司机查看附近充电桩的地图，显示可用状态（可用 / 占用 / 故障）和价格。</span></td>
+</tr>
+<tr>
+<td>UC2</td>
+<td>Reserve Charger<br><span class="zc">预约充电桩</span></td>
+<td>The driver reserves a connector for up to 15 minutes. The platform sends a reservation notification.<br><span class="zc">司机预约一个充电枪口，最长保留 15 分钟。平台发送预约通知。</span></td>
+</tr>
+<tr>
+<td>UC3</td>
+<td>Start / Stop Charging Session<br><span class="zc">开始 / 结束充电会话</span></td>
+<td>The driver scans the QR code on the charger. The platform authorises the driver and starts the session on the charger unit. While charging, the unit sends a meter value every 30 seconds. When the driver stops, the platform computes the cost, captures the payment through the Payment Gateway and issues a receipt. <strong>The receipt is kept on the driver's phone so that it can be viewed offline.</strong><br><span class="zc">司机扫描充电桩上的二维码。平台给司机授权，并在充电桩上启动会话。充电期间，充电桩每 30 秒发一次电表读数。司机结束时，平台计算费用，经支付网关扣款并开收据。<strong>收据保存在司机手机上，离线也能查看。</strong></span></td>
+</tr>
+<tr>
+<td>UC4</td>
+<td>Report Charger Status<br><span class="zc">上报充电桩状态</span></td>
+<td>Each charger unit reports every status change and, while charging, a meter value every 30 seconds.<br><span class="zc">每台充电桩上报每一次状态变化；充电期间每 30 秒上报一次电表读数。</span></td>
+</tr>
+<tr>
+<td>UC5</td>
+<td>Manage Stations<br><span class="zc">管理充电站</span></td>
+<td>The CPO Admin configures stations, connectors and tariffs.<br><span class="zc">运营商管理员配置充电站、充电枪口和电价。</span></td>
+</tr>
+<tr>
+<td>UC6</td>
+<td>View Operator Dashboard<br><span class="zc">查看运营商看板</span></td>
+<td>The CPO Admin views utilisation and revenue per station, updated every 5 minutes.<br><span class="zc">运营商管理员查看每个站的使用率和收入，每 5 分钟更新。</span></td>
+</tr>
+<tr>
+<td>UC7</td>
+<td>Monthly Settlement<br><span class="zc">月度结算</span></td>
+<td>At the end of each month the platform computes the revenue share of each CPO from all sessions and meter values of the month (batch).<br><span class="zc">每月底平台根据当月所有会话和电表读数，计算每个运营商的收入分成（批处理）。</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Phase 2 · 第二阶段</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Use case<br><span class="zc">用例</span></th>
+<th>Description<br><span class="zc">说明</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UC8</td>
+<td>Smart Charging<br><span class="zc">智能充电</span></td>
+<td>Every 15 minutes the platform adjusts the charging power of active sessions using the price from the Grid Operator Price API.<br><span class="zc">平台每 15 分钟按电网电价 API 的电价，调整进行中会话的充电功率。</span></td>
+</tr>
+<tr>
+<td>UC9</td>
+<td>Ask Trip Assistant<br><span class="zc">询问行程助手</span></td>
+<td>The driver asks a question in natural language (e.g. "plan my charging stops to Malacca"); the platform sends it with the driver's context to the LLM Provider API and shows the answer.<br><span class="zc">司机用自然语言提问（如"规划去马六甲沿途的充电站"）；平台把问题连同司机的上下文发给 LLM 服务商 API，并显示答案。</span></td>
+</tr>
+</tbody>
+</table>
+<h2>3. Extensibility · 可扩展性</h2>
+<p>The platform shall provide common services and libraries so that future platforms of the agency (e-scooter sharing, battery swapping, public parking) can reuse them. In particular, notification and payment shall be reusable by the agency's other platforms.</p>
+<p class="zh">平台应提供公共服务和库，让能源局未来的平台（电动滑板车共享、换电、公共停车）可以复用。特别是通知和支付，要能被能源局的其他平台复用。</p>
+<h2>4. Performance and Scalability · 性能与可扩展性</h2>
+<ul>
+<li>Phase 1 shall support <strong>200,000 registered drivers</strong>, with up to <strong>20,000 concurrent drivers</strong> at the evening peak (6 pm to 9 pm), <strong>300 CPO Admins</strong> and <strong>15,000 charger units</strong>.<br><span class="zc">第一阶段要支持 <strong>20 万注册司机</strong>，晚高峰（晚 6 点到 9 点）最多 <strong>2 万并发司机</strong>，<strong>300 名运营商管理员</strong>和 <strong>15,000 台充电桩</strong>。</span></li>
+<li>Interactive requests (find, reserve, start, stop) shall complete within <strong>2 seconds for 90%</strong> of the requests.<br><span class="zc">交互请求（查找、预约、开始、结束）<strong>90% 要在 2 秒内</strong>完成。</span></li>
+<li>A change in charger availability shall be visible to drivers within <strong>10 seconds</strong>.<br><span class="zc">充电桩可用状态的变化要在 <strong>10 秒内</strong>让司机看到。</span></li>
+<li>The operator dashboard shall be updated every <strong>5 minutes</strong>.<br><span class="zc">运营商看板每 <strong>5 分钟</strong>更新一次。</span></li>
+<li>Phase 2: when a driver asks the Trip Assistant (UC9), the app shall show that the question has been received within <strong>2 seconds for 90%</strong> of the requests; the full answer shall be shown within <strong>15 seconds</strong> for 90% of the questions.<br><span class="zc">第二阶段：司机询问行程助手（UC9）时，App <strong>90% 要在 2 秒内</strong>显示"问题已收到"；90% 的问题要在 <strong>15 秒内</strong>显示完整答案。</span></li>
+<li>Multitenancy is <strong>not</strong> expected in Phase 1; CPO data is separated by role-based access control.<br><span class="zc">第一阶段<strong>不要求</strong>多租户；运营商数据靠基于角色的访问控制分开。</span></li>
+</ul>
+<h2>5. Security · 安全</h2>
+<p>The platform follows the DMZ / reverse-proxy practice. Personal data is encrypted at rest and in transit and handled according to the PDPA. Payment card data is handled only by the Payment Gateway and by as few platform subsystems as possible (PCI-DSS).</p>
+<p class="zh">平台遵循 DMZ / 反向代理的做法。个人数据在存储和传输中都加密，并按新加坡个人数据保护法（PDPA）处理。支付卡数据只由支付网关和尽量少的平台子系统处理（PCI-DSS）。</p>
+<h2>6. Initial Architecture · 初始架构</h2>
+<p>The logical architecture uses the layers <strong>Presentation</strong>, <strong>Control</strong>, <strong>Data Access</strong>, <strong>External Integration</strong> and <strong>Shared Library</strong>. The Driver mobile app (with local storage) and the Operator web portal are the front ends; the backend runs in the cloud.</p>
+<p class="zh">逻辑架构分为以下几层：<strong>Presentation（表现层）</strong>、<strong>Control（控制层）</strong>、<strong>Data Access（数据访问层）</strong>、<strong>External Integration（外部集成层）</strong>、<strong>Shared Library（共享库层）</strong>。司机手机 App（带本地存储）和运营商网页门户是前端；后端运行在云上。</p>
+<h2>7. Domain Model (Figure 5) · 领域模型（图 5）</h2>
+<p>Each box is a <code>&lt;&lt;service&gt;&gt;</code>. Entities in brackets [ ] with the same letter belong to one <strong>aggregate</strong> (red circle in the original diagram).</p>
+<p class="zh">每个框是一个 <code>&lt;&lt;service&gt;&gt;</code>（服务）。方括号 [ ] 里同一个字母的实体属于同一个<strong>聚合</strong>（原图中的红圈）。</p>
+<table>
+<thead>
+<tr>
+<th>&lt;<service>&gt;</th>
+<th>Entities<br><span class="zc">实体</span></th>
+<th>Aggregates<br><span class="zc">聚合</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DriverManager</td>
+<td>Driver, Vehicle, PaymentMethodToken<br><span class="zc">司机、车辆、支付方式令牌</span></td>
+<td>[D] Driver + Vehicle</td>
+</tr>
+<tr>
+<td>StationManager</td>
+<td>ChargingStation, Connector, Tariff, ChargerStatus, MeterReading<br><span class="zc">充电站、充电枪口、电价、充电桩状态、电表读数</span></td>
+<td><strong>[S] ChargingStation + Connector + Tariff + ChargerStatus + MeterReading</strong> (ChargingStation is the root)<br><span class="zc">（ChargingStation 是聚合根）</span></td>
+</tr>
+<tr>
+<td>SessionManager</td>
+<td>ChargingSession, Reservation, Receipt<br><span class="zc">充电会话、预约、收据</span></td>
+<td>[C] ChargingSession + Receipt; [R] Reservation</td>
+</tr>
+<tr>
+<td>AvailabilityManager</td>
+<td>AvailabilityMap, ConnectorAvailability<br><span class="zc">可用状态地图、枪口可用状态</span></td>
+<td>[A] AvailabilityMap + ConnectorAvailability</td>
+</tr>
+<tr>
+<td>PaymentManager</td>
+<td>Payment, Refund<br><span class="zc">支付、退款</span></td>
+<td>[P] Payment + Refund</td>
+</tr>
+<tr>
+<td>BillingManager</td>
+<td>Invoice, Settlement, RevenueShare<br><span class="zc">发票、结算、收入分成</span></td>
+<td>[B] Settlement + RevenueShare; [I] Invoice</td>
+</tr>
+<tr>
+<td>NotificationManager</td>
+<td>NotificationMessage<br><span class="zc">通知消息</span></td>
+<td>[N] NotificationMessage</td>
+</tr>
+</tbody>
+</table>
+<p>Associations that cross service boxes · 跨服务框的关联：</p>
+<ul>
+<li>ChargingSession — Connector (StationManager): a session uses one connector.<br><span class="zc">一个充电会话使用一个充电枪口。</span></li>
+<li>ChargingSession — Driver (DriverManager); ChargingSession — Payment (PaymentManager).<br><span class="zc">充电会话关联司机（DriverManager）和支付（PaymentManager）。</span></li>
+<li><strong>ConnectorAvailability — ChargerStatus (StationManager): the availability of each connector is derived from the latest ChargerStatus.</strong><br><span class="zc"><strong>每个枪口的可用状态由最新的 ChargerStatus 推算出来。</strong></span></li>
+<li>Invoice — ChargingSession (SessionManager); Settlement — MeterReading (StationManager).<br><span class="zc">发票关联充电会话（SessionManager）；结算关联电表读数（StationManager）。</span></li>
+</ul>
+<h2>8. Logical Packaging and Deployment Model (Figure 6) · 逻辑打包与部署模型（图 6）</h2>
+<p>Figure 6 shows the packaging and deployment for <strong>UC3 Start / Stop Charging Session</strong> only. It was drawn by a junior architect; it is <strong>incomplete and may contain errors</strong>. The deployment of the backend <strong>Data Access subsystems and data stores</strong> is <strong>deliberately omitted</strong>.</p>
+<p class="zh">图 6 只画了 <strong>UC3 开始 / 结束充电会话</strong>的打包与部署。它由一位初级架构师绘制，<strong>不完整，可能有错</strong>。后端 <strong>Data Access 子系统和数据存储</strong>的部署是<strong>刻意省略</strong>的（没画不算错）。</p>
+<table>
+<thead>
+<tr>
+<th>Subsystem<br><span class="zc">子系统</span></th>
+<th>Manifests (packaged elements)<br><span class="zc">打包进去的元素</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Session Manager Presentation</td>
+<td>StartSessionScreen «boundary», ReceiptScreen «boundary»</td>
+</tr>
+<tr>
+<td>Session Manager Control</td>
+<td>SessionController «control», PaymentGatewayAdapter «boundary»</td>
+</tr>
+<tr>
+<td>Session Manager Data Access</td>
+<td>ChargingSession «entity», Receipt «entity»</td>
+</tr>
+<tr>
+<td>Payment Manager Control</td>
+<td>PaymentController «control»</td>
+</tr>
+<tr>
+<td>Payment Manager Data Access</td>
+<td>Payment «entity», MeterReading «entity»</td>
+</tr>
+<tr>
+<td>Notification Manager Control</td>
+<td>NotificationController «control»</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Node (location)<br><span class="zc">节点（位置）</span></th>
+<th>Deployed subsystems<br><span class="zc">部署在上面的子系统</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mobile Device with Local Storage (Internet)<br><span class="zc">带本地存储的手机（互联网侧）</span></td>
+<td>Session Manager Presentation, Payment Manager Control</td>
+</tr>
+<tr>
+<td>Application Server (Internal Zone)<br><span class="zc">应用服务器（内部区）</span></td>
+<td>Session Manager Control, Notification Manager Control</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mock2">
+<div class="cover-q">
+<div class="ttl">SWE5001 — MOCK EXAMINATION 2（中英对照版）</div>
+<div class="sub">Architecting Scalable Systems · Case: TixNow National Ticketing Platform<br><span class="zc">案例：TixNow 全国票务平台</span></div>
+<div class="rules">Time allowed: 3 hours (plus 30 minutes reading time) · Total: 50 marks · Open book (printed materials only)<br>
+<span class="zc">考试时间 3 小时（另加 30 分钟阅读时间）· 总分 50 · 开卷（只能带纸质资料）</span><br>
+Answer ALL questions. Refer to the case study in Appendix A. Where a question asks for a diagram, draw it. State any assumption you make.<br>
+<span class="zc">回答全部题目。参考附录 A 的案例。题目要求画图的必须画图。你做的任何假设都要写出来。</span><br>
+<b>Practice paper written for self-study. It is not an official paper.</b> <span class="zc">自学用练习卷，不是官方试卷。正式考试是纯英文，先做英文版，看不懂再对照中文。</span></div>
+</div>
+
+<h2>Section A (25 marks) · A 部分（25 分）</h2>
+<p><strong>Question 1 · 第 1 题</strong></p>
+<p>Refer to the case study in Appendix A.</p>
+<p class="zh">参考附录 A 的案例。</p>
+<p><strong>(a)</strong> Two of the seeds of TixNow are <strong>event tickets</strong> and <strong>seats</strong>; the interactions include browsing events, joining the on-sale queue, selecting seats, paying and reselling tickets. With reference to the seeds and interactions, explain <strong>one</strong> architectural aspect that is most crucial for the success of the platform. <strong>(2 marks)</strong></p>
+<p class="zh"><strong>(a)</strong> TixNow 的两个种子是<strong>活动门票</strong>和<strong>座位</strong>；交互包括浏览活动、加入开售排队、选座、付款和转售门票。结合种子和交互，解释对平台成功最关键的<strong>一个</strong>架构方面。<strong>（2 分）</strong></p>
+<p><strong>(b)</strong> Domain entities are an important part of the reusable assets of the platform.</p>
+<p class="zh"><strong>(b)</strong> 领域实体是平台可复用资产的重要组成部分。</p>
+<p>(i) Analyse the use cases UC2, UC3, UC4 and UC6 in Section 5 and use the DDD approach to identify the domain objects and their relationships. Draw them as a UML class diagram, grouped into services. Do <strong>not</strong> base your answer on Figure 5; Figure 5 is used only in Q3(b). <strong>(5 marks)</strong></p>
+<p class="zh">(i) 分析第 5 节的用例 UC2、UC3、UC4、UC6，用 DDD 方法找出领域对象及其关系，画成按服务分组的 UML 类图。<strong>不要</strong>以图 5 为依据；图 5 只用于第 3(b) 题。<strong>（5 分）</strong></p>
+<p>(ii) An important feature of the platform is to have services that can be shared across the four applications and exposed to external applications. Identify the recommended <strong>shared services</strong> of the platform. <strong>(4 marks)</strong></p>
+<p class="zh">(ii) 平台的一个重要特点是：有些服务能被四个应用共享，并开放给外部应用使用。找出平台推荐的<strong>共享服务</strong>。<strong>（4 分）</strong></p>
+<p><strong>(c)</strong></p>
+<p>(i) From the shared services in (b)(ii), select <strong>two</strong> to be exposed as APIs to <strong>any two types</strong> of external clients (producers or consumers). Name the clients and justify your choice. <strong>(2 marks)</strong></p>
+<p class="zh">(i) 从 (b)(ii) 的共享服务里选<strong>两个</strong>，作为 API 开放给<strong>任意两类</strong>外部客户（生产者或消费者）。点名是哪些客户，并论证你的选择。<strong>（2 分）</strong></p>
+<p>(ii) Select <strong>one</strong> of the services in (c)(i) and design its API at <strong>Level 3</strong> of the Richardson Maturity Model. Specify the service URIs, the HTTP actions, the input and output definitions, and explain the purpose of each operation. <strong>(4 marks)</strong></p>
+<p class="zh">(ii) 从 (c)(i) 的服务里选<strong>一个</strong>，按 Richardson 成熟度模型 <strong>Level 3</strong> 设计它的 API。写出服务 URI、HTTP 动作、输入输出定义，并解释每个操作的用途。<strong>（4 分）</strong></p>
+<p><strong>(d)</strong> Propose a suitable type of data store and a cloud database or storage service for <strong>each</strong> of the following, and justify each choice in one or two sentences: <strong>(4 marks)</strong></p>
+<p class="zh"><strong>(d)</strong> 为下面<strong>每一项</strong>提出合适的数据存储类型和一个云数据库或存储服务，每个选择用一两句话论证：<strong>（4 分）</strong></p>
+<ol>
+<li>the event catalogue of UC1, where concerts, football matches and theatre shows have different attributes;<br><span class="zc">UC1 的活动目录：演唱会、足球赛、话剧的字段各不相同；</span></li>
+<li>the seat holds of UC2, which must expire automatically after 8 minutes;<br><span class="zc">UC2 的座位保留：8 分钟后必须自动失效；</span></li>
+<li>the orders and payments of UC3;<br><span class="zc">UC3 的订单和支付；</span></li>
+<li>the counters of the organiser sales dashboard of UC7, updated every minute.<br><span class="zc">UC7 主办方销售看板的计数器，每分钟更新。</span></li>
+</ol>
+<p><strong>(e)</strong> Gate scanning (UC5) must keep working when the venue network is unstable.</p>
+<p class="zh"><strong>(e)</strong> 场馆网络不稳定时，闸口验票（UC5）也必须能继续工作。</p>
+<p>(i) Explain how the scanner application and the backend should be designed so that 60,000 fans can enter within 90 minutes with each scan validated in less than 1 second even when the network is down. <strong>(2 marks)</strong></p>
+<p class="zh">(i) 解释扫描器应用和后端应该怎样设计，才能让 6 万名观众在 90 分钟内入场，并且即使网络断了，每次扫描也能在 1 秒内完成校验。<strong>（2 分）</strong></p>
+<p>(ii) State <strong>one</strong> risk of the design you proposed in (i), and explain how you would reduce it. <strong>(2 marks)</strong></p>
+<p class="zh">(ii) 说出你在 (i) 提出的设计的<strong>一个</strong>风险，并解释你会怎样降低它。<strong>（2 分）</strong></p>
+<h2>Section B (13 marks) · B 部分（13 分）</h2>
+<p><strong>Question 2 · 第 2 题</strong></p>
+<p><strong>(a)</strong> A junior architect drew the following <strong>logical detailed deployment diagram</strong> for TixNow Concerts and TixNow Sports (functional components are not shown).</p>
+<p class="zh"><strong>(a)</strong> 一位初级架构师为 TixNow Concerts 和 TixNow Sports 画了下面这张<strong>逻辑详细部署图</strong>（没有画功能组件）。</p>
+<table>
+<thead>
+<tr>
+<th>Location<br><span class="zc">位置</span></th>
+<th>Node<br><span class="zc">节点</span></th>
+<th>Subsystems deployed on the node<br><span class="zc">部署在节点上的子系统</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Internal Zone 1<br><span class="zc">内部区 1</span></td>
+<td>Application node<br><span class="zc">应用节点</span></td>
+<td>Concerts Presentation, Concerts Control, Sports Presentation, Seat Map Service<br><span class="zc">演唱会表现层、演唱会控制层、体育表现层、座位图服务</span></td>
+</tr>
+<tr>
+<td>Internal Zone 1</td>
+<td>Platform node<br><span class="zc">平台节点</span></td>
+<td>Concert Recommendation Service, Virtual Queue Service, Ticket Issuing Service, Payment Service (calls the external Payment Gateway directly)<br><span class="zc">演唱会推荐服务、虚拟排队服务、出票服务、支付服务（直接调用外部支付网关）</span></td>
+</tr>
+<tr>
+<td>Internal Zone 1</td>
+<td>Data Store node<br><span class="zc">数据存储节点</span></td>
+<td>Data Subsystem (one database shared by all services and all organisers)<br><span class="zc">数据子系统（所有服务和所有主办方共用一个数据库）</span></td>
+</tr>
+<tr>
+<td>Internal Zone 1</td>
+<td>Integration node<br><span class="zc">集成节点</span></td>
+<td>Integration Subsystem<br><span class="zc">集成子系统</span></td>
+</tr>
+</tbody>
+</table>
+<p>Notes: Seat Map Service is used by Concerts, Sports and the future theatre application. Concert Recommendation Service is used only by TixNow Concerts. There is no other location.</p>
+<p class="zh">说明：座位图服务被 Concerts、Sports 以及将来的剧场应用使用。演唱会推荐服务只给 TixNow Concerts 用。图中没有其他位置（区域）。</p>
+<p><strong>Identify three</strong> undesirable architectural decisions in this diagram. For each, propose the corrective action and justify it. You may draw a similar diagram to illustrate. <strong>(6 marks)</strong></p>
+<p class="zh"><strong>指出</strong>这张图中<strong>三个</strong>不理想的架构决策。对每一个，提出纠正措施并论证。可以画一张类似的图来说明。<strong>（6 分）</strong></p>
+<p><strong>(b)</strong> Based on your corrected diagram in (a), draw the <strong>physical detailed deployment diagram</strong> of TixNow on AWS using <strong>some</strong> of the following services: Amazon API Gateway, Amazon CloudFront, Amazon S3, AWS WAF, Amazon Cognito, Amazon EKS, AWS Lambda, Amazon SQS, Amazon DynamoDB, Amazon ElastiCache, Amazon RDS. Explain <strong>at least three</strong> important decisions that lead to this physical architecture. <strong>(7 marks)</strong></p>
+<p class="zh"><strong>(b)</strong> 根据你在 (a) 改正后的图，用下列服务中的<strong>一部分</strong>画出 TixNow 在 AWS 上的<strong>物理详细部署图</strong>：Amazon API Gateway、Amazon CloudFront、Amazon S3、AWS WAF、Amazon Cognito、Amazon EKS、AWS Lambda、Amazon SQS、Amazon DynamoDB、Amazon ElastiCache、Amazon RDS。解释导出这个物理架构的<strong>至少三个</strong>重要决策。<strong>（7 分）</strong></p>
+<h2>Section C (12 marks) · C 部分（12 分）</h2>
+<p><strong>Question 3 · 第 3 题</strong></p>
+<p><strong>(a)</strong> The existing box-office system <strong>VenueBox</strong> (Section 6) must be moved to the cloud within 6 months, before the National Games, and later integrated with TixNow. Recommend a <strong>migration strategy</strong> for VenueBox, justify it, and state <strong>one</strong> risk of your choice. <strong>(4 marks)</strong></p>
+<p class="zh"><strong>(a)</strong> 现有的售票柜台系统 <strong>VenueBox</strong>（第 6 节）必须在 6 个月内、全国运动会之前搬到云上，之后再和 TixNow 集成。为 VenueBox 推荐一个<strong>迁移策略</strong>，论证它，并说出你这个选择的<strong>一个</strong>风险。<strong>（4 分）</strong></p>
+<p><strong>(b)</strong> Refer to the seat-booking fragment of the domain model in Figure 5. During the first on-sale, <strong>two fans were able to hold the same seat</strong> at the same time. <strong>Identify</strong> the most likely cause, <strong>propose</strong> a countermeasure by changing the domain model, and state the <strong>main drawback</strong> of your countermeasure. <strong>(4 marks)</strong></p>
+<p class="zh"><strong>(b)</strong> 参考图 5 领域模型中的订座片段。第一次开售时，<strong>两名观众同时保留了同一个座位</strong>。<strong>指出</strong>最可能的原因，<strong>提出</strong>通过修改领域模型的对策，并说明对策的<strong>主要缺点</strong>。<strong>（4 分）</strong></p>
+<p><strong>(c)</strong> During on-sale peaks the external Payment Gateway sometimes takes more than 20 seconds to answer or times out. Payment requests then block the threads of the payment service, other requests slow down, and many seat holds expire before payment completes. The 8-minute hold rule in Section 3 <strong>must not be changed</strong>. Propose <strong>two</strong> resilience measures and explain how each one helps. <strong>(4 marks)</strong></p>
+<p class="zh"><strong>(c)</strong> 开售高峰时，外部支付网关有时超过 20 秒才回应，或者直接超时。支付请求于是堵住了支付服务的线程，其他请求也变慢，很多座位保留在付款完成前就过期了。第 3 节的 8 分钟保留规则<strong>不能改</strong>。提出<strong>两个</strong>韧性措施，并解释每个措施怎样起作用。<strong>（4 分）</strong></p>
+<div class="endp">— END OF PAPER · 试卷结束 —</div>
+
+<div class="pbreak"></div>
+
+<h1>Appendix A — Case Study: TixNow National Ticketing Platform · 附录 A 案例：TixNow 全国票务平台</h1>
+<h2>1. Background · 背景</h2>
+<p>The national arts and sports agency is building <strong>TixNow</strong>, a ticketing platform shared by venues (concert halls, stadiums, theatres), <strong>event organisers</strong> and <strong>fans</strong>. The platform runs four applications:</p>
+<p class="zh">全国艺术与体育管理局正在建设 <strong>TixNow</strong>，一个由场馆（音乐厅、体育场、剧院）、<strong>活动主办方</strong>和<strong>观众</strong>共用的票务平台。平台运行四个应用：</p>
+<ul>
+<li><strong>TixNow Concerts</strong> and <strong>TixNow Sports</strong> — fans browse events, join the on-sale queue, select seats and pay;<br><span class="zc"><strong>TixNow Concerts</strong> 和 <strong>TixNow Sports</strong>：观众浏览活动、加入开售排队、选座、付款；</span></li>
+<li><strong>TixNow Resale</strong> — fans resell tickets to other fans at face value;<br><span class="zc"><strong>TixNow Resale</strong>：观众按票面价把票转售给其他观众；</span></li>
+<li><strong>TixNow Venue</strong> — venue staff scan tickets at the gates with handheld scanners.<br><span class="zc"><strong>TixNow Venue</strong>：场馆工作人员在闸口用手持扫描器验票。</span></li>
+</ul>
+<p>Roles: <strong>Fan</strong>, <strong>Organiser Admin</strong>, <strong>Venue Staff</strong>, <strong>Finance Officer</strong>, <strong>Platform Admin</strong>. Organisers and venues are <strong>tenants</strong> of the platform. External systems: <strong>Payment Gateway</strong>, <strong>SMS/Email Provider</strong>, the national <strong>Singpass</strong>-style identity service used to verify fans for high-demand events.</p>
+<p class="zh">角色：<strong>观众</strong>、<strong>主办方管理员</strong>、<strong>场馆工作人员</strong>、<strong>财务专员</strong>、<strong>平台管理员</strong>。主办方和场馆是平台的<strong>租户</strong>。外部系统：<strong>支付网关</strong>、<strong>短信 / 邮件服务商</strong>，以及类似 <strong>Singpass</strong> 的国家身份认证服务（热门活动用它核验观众身份）。</p>
+<h2>2. Extensibility · 可扩展性</h2>
+<p>The platform shall provide common services and libraries that can be shared across the applications and exposed to external applications. In the near future it shall support <strong>timed-entry tickets for theatres and museums</strong> and the sale of <strong>event merchandise</strong>.</p>
+<p class="zh">平台应提供能在各应用之间共享、并开放给外部应用使用的公共服务和库。近期还要支持<strong>剧院和博物馆的分时段入场票</strong>，以及<strong>活动周边商品</strong>的销售。</p>
+<h2>3. Performance, Scalability and Multitenancy · 性能、可扩展性与多租户</h2>
+<ul>
+<li>For a popular concert, <strong>500,000 fans</strong> may join the virtual queue in the first <strong>10 minutes</strong> of the on-sale; the platform shall handle up to <strong>50,000 seat-selection requests per minute</strong>.<br><span class="zc">热门演唱会开售的前 <strong>10 分钟</strong>内，可能有 <strong>50 万观众</strong>加入虚拟排队；平台要能处理每分钟最多 <strong>5 万次选座请求</strong>。</span></li>
+<li>Interactive requests (browse events, select seats, view my tickets) shall complete within <strong>2 seconds for 90%</strong> of the requests.<br><span class="zc">交互请求（浏览活动、选座、查看我的票）<strong>90% 要在 2 秒内</strong>完成。</span></li>
+<li>A seat hold expires <strong>8 minutes</strong> after it is created if the fan has not paid.<br><span class="zc">座位保留创建后，如果观众没付款，<strong>8 分钟</strong>后失效。</span></li>
+<li>At a stadium, <strong>60,000 fans</strong> enter within <strong>90 minutes</strong>; each scan shall be validated in <strong>less than 1 second</strong>, even when the venue network is unstable.<br><span class="zc">体育场里 <strong>6 万名观众</strong>要在 <strong>90 分钟</strong>内入场；即使场馆网络不稳定，每次扫描也要在 <strong>1 秒内</strong>完成校验。</span></li>
+<li>The organiser sales dashboard shall be updated <strong>every minute</strong>.<br><span class="zc">主办方销售看板<strong>每分钟</strong>更新一次。</span></li>
+<li>The platform <strong>must support multitenancy</strong>: the sales and customer data of each organiser and of each venue must be isolated from other tenants. Data may be partitioned by organiser and by event.<br><span class="zc">平台<strong>必须支持多租户</strong>：每个主办方和每个场馆的销售与客户数据都要和其他租户隔离。数据可以按主办方和按活动分区。</span></li>
+</ul>
+<h2>4. Security · 安全</h2>
+<p>The platform follows the DMZ / reverse-proxy practice. Personal data is encrypted and handled according to the PDPA. Payment card data is handled only by the Payment Gateway and by as few platform subsystems as possible (PCI-DSS). Rate limiting and bot detection protect the on-sale queue.</p>
+<p class="zh">平台遵循 DMZ / 反向代理的做法。个人数据加密，并按新加坡个人数据保护法（PDPA）处理。支付卡数据只由支付网关和尽量少的平台子系统处理（PCI-DSS）。开售排队由限流和机器人检测保护。</p>
+<h2>5. Use Cases · 用例</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Use case<br><span class="zc">用例</span></th>
+<th>Description<br><span class="zc">说明</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UC1</td>
+<td>Browse Events<br><span class="zc">浏览活动</span></td>
+<td>Fans list events by category and date and view the event details and the venue seat map. Concerts, matches and theatre shows have different attributes (e.g. artists and setlist; teams and league; cast and running time).<br><span class="zc">观众按类别和日期列出活动，查看活动详情和场馆座位图。演唱会、比赛、话剧的字段不同（如歌手和歌单；球队和联赛；演员和时长）。</span></td>
+</tr>
+<tr>
+<td>UC2</td>
+<td>Join Queue and Select Seats<br><span class="zc">排队并选座</span></td>
+<td>Fans join a virtual queue for an event. When admitted, a fan selects up to 4 seats in one or more price categories. The selected seats are <strong>held</strong> for the fan for 8 minutes.<br><span class="zc">观众加入某个活动的虚拟排队。被放行后，观众在一个或多个价位里最多选 4 个座位。选中的座位为该观众<strong>保留</strong> 8 分钟。</span></td>
+</tr>
+<tr>
+<td>UC3</td>
+<td>Pay and Issue Tickets<br><span class="zc">付款并出票</span></td>
+<td>The fan pays for the held seats through the Payment Gateway. For each seat an e-ticket with a QR code is issued to the fan's ticket wallet, and a confirmation is sent by SMS/email.<br><span class="zc">观众通过支付网关为保留的座位付款。每个座位出一张带二维码的电子票，放进观众的票夹，并通过短信 / 邮件发送确认。</span></td>
+</tr>
+<tr>
+<td>UC4</td>
+<td>Resell Ticket<br><span class="zc">转售门票</span></td>
+<td>A fan lists a ticket for resale at face value. When another fan buys it, the platform pays the seller, invalidates the old QR code and issues a new e-ticket to the buyer.<br><span class="zc">观众按票面价挂出一张票转售。另一位观众买下后，平台付款给卖家，作废旧二维码，并给买家出一张新电子票。</span></td>
+</tr>
+<tr>
+<td>UC5</td>
+<td>Scan Ticket at Gate<br><span class="zc">闸口验票</span></td>
+<td>Venue staff scan the QR code with a handheld scanner. The scanner shows "valid" or "invalid" and records the entry.<br><span class="zc">场馆工作人员用手持扫描器扫二维码。扫描器显示"有效"或"无效"，并记录入场。</span></td>
+</tr>
+<tr>
+<td>UC6</td>
+<td>Manage Event<br><span class="zc">管理活动</span></td>
+<td>The Organiser Admin creates an event at a venue, defines price categories, assigns seats of the venue's seat map to the categories and sets the on-sale time.<br><span class="zc">主办方管理员在某个场馆创建活动，定义价位，把场馆座位图上的座位分配到各价位，并设置开售时间。</span></td>
+</tr>
+<tr>
+<td>UC7</td>
+<td>View Sales Dashboard<br><span class="zc">查看销售看板</span></td>
+<td>The Organiser Admin views tickets sold and revenue per price category, updated every minute.<br><span class="zc">主办方管理员查看每个价位的售票数和收入，每分钟更新。</span></td>
+</tr>
+<tr>
+<td>UC8</td>
+<td>Settle with Organiser<br><span class="zc">与主办方结算</span></td>
+<td>Seven days after each event, the Finance Officer runs the settlement that pays the organiser (batch).<br><span class="zc">每场活动结束 7 天后，财务专员运行结算，给主办方付款（批处理）。</span></td>
+</tr>
+</tbody>
+</table>
+<h2>6. Existing System: VenueBox · 现有系统 VenueBox</h2>
+<p>VenueBox is the current box-office system used at venue counters. It is an 8-year-old Java monolith running on two physical servers with an Oracle database in the agency's data centre. It works reliably but cannot scale for online on-sales, and the hardware support contract ends in 6 months.</p>
+<p class="zh">VenueBox 是目前场馆售票柜台用的系统。它是一个用了 8 年的 Java 单体应用，跑在管理局数据中心的两台物理服务器上，用 Oracle 数据库。它运行稳定，但无法扩展到线上开售的规模，而且硬件维保合同 6 个月后到期。</p>
+<h2>7. Domain Model — Seat-Booking Fragment (Figure 5) · 领域模型：订座片段（图 5）</h2>
+<table>
+<thead>
+<tr>
+<th>&lt;<service>&gt;</th>
+<th>Entities<br><span class="zc">实体</span></th>
+<th>Notes<br><span class="zc">说明</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EventManager</td>
+<td>Event, PriceCategory, <strong>Seat</strong> (status: available / held / sold)<br><span class="zc">活动、价位、<strong>座位</strong>（状态：可售 / 保留 / 已售）</span></td>
+<td>Seat is part of the Event aggregate.<br><span class="zc">Seat 属于 Event 聚合。</span></td>
+</tr>
+<tr>
+<td>BookingManager</td>
+<td>Booking, <strong>SeatHold</strong> (seatId, fanId, expiresAt), <strong>SeatReplica</strong> (read-only copy of Seat)<br><span class="zc">订单、<strong>座位保留</strong>、<strong>座位副本</strong>（Seat 的只读副本）</span></td>
+<td>SeatReplica is updated by SeatStatusChanged events published by EventManager.<br><span class="zc">SeatReplica 由 EventManager 发布的 SeatStatusChanged 事件更新。</span></td>
+</tr>
+</tbody>
+</table>
+<p>Business rule: <strong>a seat can be held or sold to only one fan at a time.</strong> When a fan selects a seat, BookingManager checks the seat status in SeatReplica and, if it is available, creates a SeatHold and publishes a SeatHeld event; EventManager then sets the Seat to held.</p>
+<p class="zh">业务规则：<strong>一个座位同一时间只能被一名观众保留或买下。</strong>观众选座时，BookingManager 在 SeatReplica 里查座位状态，如果可售就创建一个 SeatHold，并发布 SeatHeld 事件；EventManager 收到后再把 Seat 设为"保留"。</p>
+</section>
+<section id="answers">
+<div class="cover-q">
+<div class="ttl">模拟卷 1 · 2 参考答案与翻页指引</div>
+<div class="sub">先自己限时做，再看这里。每题给：题型 → 应该翻到手册哪几页 → 得分点 → 参考答案要点</div>
+<div class="rules">页码按当前版《SWE5001 考场答题手册》自动生成；手册改版后重跑 build_mock.py 会同步更新。<br>这是练习卷，得分点按样卷评分方式推断，不是官方答案；合理的其他答案也能得分。</div>
+</div>
+
+<h2>用法：练翻书比练答案更重要</h2>
+<table>
+<thead>
+<tr>
+<th>步</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>拿到题先看<strong>指令词和分值</strong>，用手册"题型速认表"（p.5）判断题型，记下你翻到的页</td>
+</tr>
+<tr>
+<td>2</td>
+<td>限时：每 1 分 3 分钟，2 分题不超过 7 分钟</td>
+</tr>
+<tr>
+<td>3</td>
+<td>做完对照下面的"应翻页"：<strong>你翻到的页对不对、翻了多久</strong>；翻不到的地方就在手册上贴标签或写批注</td>
+</tr>
+<tr>
+<td>4</td>
+<td>再对得分点；写不出来的英文句子，去 PART 3 句型（p.58）找对应功能的句子</td>
+</tr>
+</tbody>
+</table>
+<h1>模拟卷 1 · GreenCharge 充电平台</h1>
+<h2>Q1(a)(i) 平均响应时间当通过标准 · 2 分 · T11</h2>
+<p><strong>应翻页：</strong> T11 负载测试 p.38，指标定义 p.67</p>
+<table>
+<thead>
+<tr>
+<th>得分点</th>
+<th>要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原因（1）</td>
+<td>不同意。需求是 <strong>90% &lt; 2 秒</strong>（百分位），平均值会掩盖慢请求；而且 10 分钟测试没有<strong>工作负载模型</strong>（曲线、并发数、场景组合）</td>
+</tr>
+<tr>
+<td>办法（1）</td>
+<td>写工作负载模型：晚高峰逐步加到 <strong>20,000 并发司机</strong>，场景组合（如 50% 找桩、20% 预约、15% 开始、15% 结束），用 JMeter 从多台施压机执行；通过标准 <strong>P90 &lt; 2 s</strong>、错误率 &lt; 0.1%</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><em>I disagree. Section 4 requires 90% of requests within 2 seconds, but an average hides slow requests. Pass criterion: P90 &lt; 2 s with a defined workload model (ramp up to 20,000 concurrent drivers, a fixed request mix), run with JMeter from several load generators.</em></p>
+</blockquote>
+<h2>Q1(a)(ii) 队列还是事件流 · 2 分 · T10</h2>
+<p><strong>应翻页：</strong> T10 p.35</p>
+<ol>
+<li><strong>多个独立消费者：</strong> 看板（每 5 分钟）和月度结算要读同一批读数；事件流让两个消费者组各读一遍，消息队列一条消息只给一个消费者、投递后就删。</li>
+<li><strong>保留与重放：</strong> 月结要读一整个月的读数，出错或有争议时还要重跑；事件流按保留期保存、可从头重放（保留期要设到一个月以上：Kinesis 最长 365 天、Kafka 可配置，或同时落到 S3 给批处理）。</li>
+<li>（补充）<strong>顺序：</strong> 按 sessionId 分区能保证同一会话的读数有序；但读数是累计值，乱序时取最新时间戳也能处理，所以顺序不是最强的理由。</li>
+</ol>
+<h2>Q1(b)(i) StationManager 内存高 · 5 分 · T1</h2>
+<p><strong>应翻页：</strong> 五类症状 p.16，句子 p.16</p>
+<table>
+<thead>
+<tr>
+<th>得分点</th>
+<th>要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原因（2）</td>
+<td>ChargingStation 聚合里挂着<strong>所有会话的 MeterReading</strong>（每个充电中的桩每 30 秒一条），加载一个站就把整天的读数全载入内存，所以内存随一天增长</td>
+</tr>
+<tr>
+<td>对策（2）</td>
+<td>按"设计小聚合"把 MeterReading 拆出成独立聚合（可以留在 StationManager，也可以移到 SessionManager 按会话管理），<strong>只用 ID 引用</strong>（connectorId / sessionId），按需加载</td>
+</tr>
+<tr>
+<td>缺点（1）</td>
+<td>要看某站的读数得多查一次；跨聚合更新只能最终一致</td>
+</tr>
+</tbody>
+</table>
+<p>分值拆法是推断（PAST 5 分题是原因 2 + 对策 1.5 + 1.5 + 缺点 0）。<strong>同样可得分的方向：</strong> 把 MeterReading 移到独立的计量服务（如 MeteringManager + Amazon Timestream）；指出 ChargerStatus 的高频写入也在同一个大聚合里，造成锁竞争。</p>
+<h2>Q1(b)(ii) 可用状态不及时 · 4 分 · T1</h2>
+<p><strong>应翻页：</strong> 五类症状 p.16，搬到一起还是副本 p.16</p>
+<table>
+<thead>
+<tr>
+<th>得分点</th>
+<th>要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原因（1.5）</td>
+<td>ChargerStatus 在 StationManager，ConnectorAvailability / AvailabilityMap 在 AvailabilityManager，后者由前者派生；每次状态变化都要<strong>跨进程</strong>同步到另一个服务，比进程内慢得多（加上 StationManager 的大聚合加载更慢）。<strong>另一个同样成立的原因：</strong> [A] AvailabilityMap 把全市的 ConnectorAvailability 放在一个聚合里，更新一个桩就要加载、锁住整张地图，对策是按桩或按区域拆成小聚合</td>
+</tr>
+<tr>
+<td>对策（1.5）</td>
+<td>把 ChargerStatus 移进 AvailabilityManager，和 ConnectorAvailability 放一起，状态一到就在同一个服务里更新地图；站点配置（Station、Connector、Tariff）留在 StationManager。副本方案也可以写，但要求 10 秒内且写入频繁，<strong>搬到一起更稳</strong></td>
+</tr>
+<tr>
+<td>缺点（1）</td>
+<td>AvailabilityManager 变大、要承受全部状态写入；StationManager 需要状态时要通过 API 或事件读取（最终一致）</td>
+</tr>
+</tbody>
+</table>
+<h2>Q1(c) 充电桩上报 API 延迟 · 6 分 · T3</h2>
+<p><strong>应翻页：</strong> 性能判断链 p.21，PAST2 Q1(c) 范文 p.49</p>
+<table>
+<thead>
+<tr>
+<th>得分点</th>
+<th>要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原因（2）</td>
+<td>① <strong>同步</strong>：回复前重算全市可用地图，15,000 台并发排队；② <strong>PUT 同一个共享资源</strong> <code>/chargers/status</code>，并发互相覆盖、阻塞，而每次上报其实是一个新事件；③ 输入冗余 / 混杂：tariff、driverId 服务器已知或无关，状态和电表读数混在一起</td>
+</tr>
+<tr>
+<td>重构（2）</td>
+<td>面向资源 + 异步：状态 <code>POST /connectors/{connectorId}/status-events</code>，读数 <code>POST /sessions/{sessionId}/meter-readings</code>；校验后发布到按 <strong>connectorId</strong> 分区的事件流（Kinesis / MSK），立即返回 <strong>202</strong>；AvailabilityManager 并行按序消费，只更新受影响的地图区块，10 秒内推送</td>
+</tr>
+<tr>
+<td>例子（2）</td>
+<td><code>POST /connectors/C-1042/status-events</code> 体 <code>{"status":"Occupied","timestamp":"18:02:10"}</code> → <strong>202 Accepted</strong>；<code>POST /sessions/S-88123/meter-readings</code> 体 <code>{"kWh":12.4,"timestamp":"18:02:30"}</code> → 202</td>
+</tr>
+</tbody>
+</table>
+<h2>Q1(d)(e) 两个质量属性 + 两个云服务 · 2 + 4 分 · T7 + T6</h2>
+<p><strong>应翻页：</strong> T6 选存储 p.27，PAST2 范文 p.50，换算 p.68</p>
+<ul>
+<li><strong>(d)</strong> 写入可扩展性（15,000 台，充电时每 30 秒一条 → 最多约 <strong>500 次 / 秒</strong>，还有状态变化）+ 低延迟（10 秒内可见、交互 90% &lt; 2 秒）。比复杂查询重要：数据简单、按桩 / 会话 ID 读写。</li>
+<li><strong>(e)</strong> <strong>Amazon DynamoDB</strong>（按 connectorId / sessionId 分区，写吞吐水平扩展，毫秒级）存读数和状态；<strong>ElastiCache for Redis</strong> 存每个桩的最新可用状态，地图查询亚毫秒。也可：Amazon Timestream 存读数（时序），S3 存历史给结算。每个服务都要写<strong>满足哪个属性、靠什么机制</strong>。</li>
+</ul>
+<h2>Q2(a) 混合云原生架构 · 8 分 · T5</h2>
+<p><strong>应翻页：</strong> T5 p.23，K8s 计划 p.24，PAST Q2(a) 范文 p.46</p>
+<table>
+<thead>
+<tr>
+<th>小问</th>
+<th>要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(i) 组件（3）</td>
+<td>App / 门户 → CloudFront + API Gateway（+ Cognito）→ EKS 微服务（Driver、Station、Session、Availability、Payment、Billing）；<strong>充电桩接入：AWS IoT Core / Kinesis</strong>；事件流（MSK / Kinesis）；Redis；RDS（会话、支付）+ DynamoDB（读数）；Lambda + SNS 发通知；定时任务做月结算；服务注册、服务网格、ECR、CI/CD、监控</td>
+</tr>
+<tr>
+<td>(ii) 通信（2）</td>
+<td>开始充电要立刻授权 → 同步 REST / gRPC（Session → Driver、Payment）；状态和读数 → 事件流（Availability、Billing、看板各自消费）；通知 → 队列 / Lambda。<strong>在图上标出</strong></td>
+</tr>
+<tr>
+<td>(iii) 状态（1）</td>
+<td>AvailabilityManager 保存每个桩的最新状态 → 外部状态存储 ElastiCache Redis（或 SessionManager 的进行中会话放 Redis + RDS）</td>
+</tr>
+<tr>
+<td>(iv) K8s（2）</td>
+<td>namespace；每服务 <strong>Deployment</strong> ≥ 3 个 <strong>Pod</strong> 跨可用区 + ClusterIP <strong>Service</strong>；Ingress 在 API Gateway 后；HPA 给 Availability、Session（按 CPU 或事件流积压）；月结算 <strong>CronJob</strong>；Kafka / Redis / 数据库用托管服务；ConfigMap / Secret</td>
+</tr>
+</tbody>
+</table>
+<h2>Q2(b) LLM 行程助手 · 3 分 · 超纲预备卡 A</h2>
+<p><strong>应翻页：</strong> 预备卡 A p.9，T17 熔断 p.42</p>
+<ul>
+<li><strong>异步：</strong> <code>POST /assistant/questions</code> 立即返回 <strong>202 + questionId</strong>，App 不被阻塞（满足 §4：90% 在 2 秒内确认收到）；后台 worker 调 LLM，结果用推送 / WebSocket 返回（或流式分段显示）。</li>
+<li><strong>超时 + 重试 + 熔断降级：</strong> 设超时（约 6–8 秒）、最多重试一次，保证 15 秒内给出答案；失败率高时熔断，返回缓存的常见路线或规则算法给出的充电站点。</li>
+<li><strong>缓存与集成层：</strong> 常见问题结果缓存在 Redis；LLM 调用放 External Integration 层；单独监控 P95 和失败率。</li>
+</ul>
+<h2>Q2(c) 共置 · 2 分 · T12</h2>
+<p><strong>应翻页：</strong> T12 p.36</p>
+<p><strong>StationManager + AvailabilityManager</strong>：每一次桩状态变化（15,000 台）都要从 ChargerStatus 传到 ConnectorAvailability，通信亲和度最高；共置后变进程内调用，延迟低，更容易满足 10 秒；两者负载都由桩上报驱动，可一起扩缩。<strong>不要</strong>把 PaymentManager 和别的服务放一起（PCI-DSS）。</p>
+<h2>Q3(a) 打包部署找错 · 6 分 · T4</h2>
+<p><strong>应翻页：</strong> T4 清单 p.13，句子 p.13</p>
+<p>任选两个，每个"识别 + 纠正 + 论证"：</p>
+<table>
+<thead>
+<tr>
+<th>识别</th>
+<th>纠正</th>
+<th>论证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Payment Manager Control <strong>部署到手机</strong></td>
+<td>删除这条 deploy，留在后端</td>
+<td>支付由后端经 Payment Gateway 完成；PCI-DSS 要求尽量少的子系统接触支付</td>
+</tr>
+<tr>
+<td>Session Manager Data Access <strong>没部署到手机</strong></td>
+<td>加 deploy 到 Mobile Device with Local Storage</td>
+<td>UC3 要求收据存在手机、可离线查看（Receipt 在这个子系统里）</td>
+</tr>
+<tr>
+<td><strong>MeterReading</strong> 打包进 Payment Manager Data Access</td>
+<td>改打包进 <strong>Station Manager Data Access</strong></td>
+<td>领域模型中 MeterReading 属于 StationManager</td>
+</tr>
+<tr>
+<td><strong>PaymentGatewayAdapter</strong> 打包进 Session Manager Control</td>
+<td>新建 <strong>Payment Manager External Integration</strong>，部署在后端内部区</td>
+<td>对接外部系统的 boundary 放集成层；它属于支付上下文；外部变化只影响集成层</td>
+</tr>
+</tbody>
+</table>
+<h2>Q3(b) "每站每日会话数"当指标 · 4 分 · T8</h2>
+<p><strong>应翻页：</strong> T8 p.33，PAST Q1(e) 范文 p.45　<strong>分值（推断）：</strong> 表态并论证 1 + 两个指标各约 1.5</p>
+<ul>
+<li><strong>不同意：</strong> 会话数只是<strong>使用量</strong>，取决于站点位置和车流；故障的桩不产生会话但数字看不出原因，也反映不了司机等了多久、启动失败几次。</li>
+<li><strong>更好的指标 1（可用性）：</strong> 充电启动成功率（Yield）= 成功启动次数 / 启动尝试次数；或桩可用时间占比 = 非故障时间 / 总时间。</li>
+<li><strong>更好的指标 2（体验）：</strong> 扫码到开始充电的平均（或 P90）耗时；或启动失败率。每个指标都要带理由。</li>
+</ul>
+<h2>Q3(c) 结束充电路径的可用性 · 2 分 · T13</h2>
+<p><strong>应翻页：</strong> T13 p.40，几个 9 表 p.68</p>
+<ul>
+<li>0.9995 × 0.999 × 0.999 × 0.995 ≈ <strong>99.25%</strong> &lt; 99.5%，<strong>不满足</strong>。</li>
+<li>改进（任一）：最弱的是外部 Payment Gateway（99.5%）→ 接<strong>第二家支付网关做故障切换</strong>：1 − 0.005² = 99.9975%，整体 ≈ <strong>99.75%</strong>；或把扣款从结束请求里拿出来：结束时先记录会话、出收据，扣款<strong>异步</strong>进行（带重试和幂等键），同步路径只剩 0.9995 × 0.999 × 0.999 ≈ 99.75%（前提：业务接受稍后扣款）。</li>
+</ul>
+<h1>模拟卷 2 · TixNow 票务平台</h1>
+<h2>Q1(a) 最关键的架构方面 · 2 分 · T9</h2>
+<p><strong>应翻页：</strong> T9 p.31，PAST3 Q1(a) 范文 p.54</p>
+<p>种子：票和座位；生产者：主办方、场馆（转售时粉丝也是生产者）；消费者：粉丝。最关键（任选一个并引用数字）：<strong>开售交互的可扩展性与公平性</strong>：10 分钟内 50 万人进入虚拟队列、每分钟 5 万次选座，要用队列削峰、弹性扩展，并保证一个座位只卖一次；或<strong>多租户 + 共享服务</strong>（主办方数据隔离、共享目录 / 票务 / 支付 API）。</p>
+<h2>Q1(b)(i) 类图 · 5 分 · T2</h2>
+<p><strong>应翻页：</strong> T2 p.18，PAST3 Q1(b) 范文 p.54</p>
+<table>
+<thead>
+<tr>
+<th>服务</th>
+<th>实体（2–3 个属性）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UserManager</td>
+<td>Fan、OrganiserAdmin、VenueStaff（← User）；Organiser（主办方机构，租户）</td>
+</tr>
+<tr>
+<td>VenueManager</td>
+<td>Venue、Seat（row, number）</td>
+</tr>
+<tr>
+<td>EventManager</td>
+<td>Event（date, category）、PriceCategory（name, price）</td>
+</tr>
+<tr>
+<td>QueueManager</td>
+<td>QueueEntry（position, admittedAt）</td>
+</tr>
+<tr>
+<td>BookingManager</td>
+<td><strong>SeatInventory</strong>（eventId, seatId, status：available / held / sold）与 SeatHold（expiresAt）同一个小聚合；Order（status）、OrderItem</td>
+</tr>
+<tr>
+<td>PaymentManager</td>
+<td>Payment（amount, status）— PCI-DSS 只在这里</td>
+</tr>
+<tr>
+<td>TicketManager</td>
+<td>Ticket（ticketNo, qrSignature, status）、Wallet</td>
+</tr>
+<tr>
+<td>ResaleManager</td>
+<td>ResaleListing（price = face value, status）</td>
+</tr>
+</tbody>
+</table>
+<p>关系：Organiser 1—<em> Event；Venue 1—</em> Seat；Venue 1—<em> Event；Event 1—</em> SeatInventory（按 ID 引用）；SeatInventory <em>—1 Seat；SeatInventory </em>—1 PriceCategory；SeatInventory ◆ SeatHold（0..1）；Fan 1—<em> Order；Order ◆ OrderItem（1..4）；OrderItem 1—1 Ticket；Ticket </em>—1 SeatInventory；Order 1—1 Payment；Ticket 1—0..1 ResaleListing。<strong>删掉：</strong> SMS / Email Provider、Payment Gateway（外部系统），QR 码（Ticket 的属性），日期、数量（属性）。座位状态和保留放在同一个小聚合，是为了守住"一座一人"的规则（也就是 Q3(b) 的纠正）；题干要求不参考 Figure 5。<strong>分值（推断）：</strong> 实体与服务分组 2 + 关系与多重性 2 + 属性 1。</p>
+<h2>Q1(b)(ii) 共享服务 · 4 分 · T2</h2>
+<p>用户与身份（四个应用 + 实名核验）；活动目录（Concerts、Sports、Resale + 剧场扩展）；场馆与座位图（Concerts、Sports、Venue + 剧场）；虚拟排队（开售、周边限量发售）；订座 / 座位保留；支付（全部，PCI-DSS）；出票与票夹（Concerts、Sports、Resale、Venue 验票、分时段入场）；通知；转售（Concerts、Sports 都要展示和购买转售票，所以算共享；若只给 Resale 用就归应用专属）；销售统计与结算。<strong>每个写给谁用、做什么。</strong></p>
+<h2>Q1(c) 开放哪两个 API + Level 3 · 2 + 4 分 · T9 + T3</h2>
+<p><strong>应翻页：</strong> T3 Level 3 p.21，PAST3 Q1(c) 范文 p.55</p>
+<ul>
+<li><strong>(i)</strong> 例：<strong>活动目录 API → 媒体和旅游合作网站</strong>（消费者）：展示活动并跳转购票，带来更多粉丝；<strong>活动管理 API → 主办方自己的系统</strong>（生产者）：直接创建活动、价位，不用在门户手工录入，带来更多种子。</li>
+<li><strong>(ii)</strong> 例：活动管理 API（给主办方系统）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>URI</th>
+<th>HTTP</th>
+<th>输入</th>
+<th>输出（links）</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/events?organiserId=..&amp;status=..</code></td>
+<td>GET</td>
+<td>查询参数</td>
+<td>200；列表；links: self, next, 每个活动</td>
+<td>列出主办方的活动</td>
+</tr>
+<tr>
+<td><code>/events/{id}</code></td>
+<td>GET</td>
+<td>—</td>
+<td>200；详情；<strong>草稿</strong>时 links: self, update-event, add-price-category, publish；<strong>开售后</strong>只剩 self, sales</td>
+<td>看一个活动</td>
+</tr>
+<tr>
+<td><code>/events</code></td>
+<td>POST</td>
+<td>name, venueId, date, category</td>
+<td><strong>201</strong>；links: self, add-price-category</td>
+<td>创建活动（草稿）</td>
+</tr>
+<tr>
+<td><code>/events/{id}</code></td>
+<td>PATCH</td>
+<td>要改的字段</td>
+<td>200；links: self, publish；开售后改价位返回 <strong>409</strong></td>
+<td>修改活动</td>
+</tr>
+<tr>
+<td><code>/events/{id}/price-categories</code></td>
+<td>POST</td>
+<td>name, price, seats</td>
+<td>201；links: self, event</td>
+<td>添加价位</td>
+</tr>
+</tbody>
+</table>
+<p>收尾两句：复数名词 + 正确动词和状态码 + 每个响应带随状态变化的链接 = Level 3；<code>Accept-version</code> 头做版本，OAuth 2.0 按主办方租户保护。</p>
+<h2>Q1(d) 四种存储 · 4 分 · 超纲预备卡 D</h2>
+<p><strong>应翻页：</strong> 预备卡 D p.10，T6 选存储 p.27</p>
+<table>
+<thead>
+<tr>
+<th>数据</th>
+<th>存储类型 → 产品</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>活动目录</td>
+<td>文档库 → Amazon DocumentDB（或 DynamoDB）</td>
+<td>不同类别字段不同，schema 灵活</td>
+</tr>
+<tr>
+<td>座位保留</td>
+<td>内存键值 → <strong>ElastiCache for Redis</strong>（键带 8 分钟 TTL）</td>
+<td>高并发写、毫秒级、到期自动失效；（DynamoDB 的 TTL 删除不及时，若用它要在代码里检查 expiresAt）</td>
+</tr>
+<tr>
+<td>订单与支付</td>
+<td>关系库 → <strong>Amazon RDS / Aurora（Multi-AZ）</strong></td>
+<td>订单和明细要在一个 ACID 事务里保存，强一致</td>
+</tr>
+<tr>
+<td>看板计数</td>
+<td>内存计数 → ElastiCache Redis（INCR）或 DynamoDB 原子计数</td>
+<td>每分钟刷新、读写快；历史可落 Redshift / S3</td>
+</tr>
+</tbody>
+</table>
+<h2>Q1(e) 离线验票 · 4 分 · 新题（推理题）</h2>
+<p><strong>应翻页：</strong> 四步下笔 p.8，T13 可用性战术 p.40</p>
+<ul>
+<li><strong>(i) 设计（2）：</strong> 开闸前把本场、本闸口的<strong>有效票清单 / 二维码签名</strong>下载到扫描器本地存储；二维码<strong>数字签名</strong>，本地验签 + 查本地清单，不依赖网络，&lt; 1 秒；入场记录先存本地，网络恢复后<strong>异步同步</strong>到后端；后端定期推送增量（转售作废的票）。</li>
+<li><strong>(ii) 风险（2）：</strong> 同一张票在两个离线闸口被重复使用，或转售后旧二维码在本地仍有效。<strong>缓解：</strong> 高频同步作废清单；用会<strong>定时轮换</strong>的二维码；同一场馆的扫描器在局域网内互相同步入场记录；按看台分配闸口，一张票只能从指定闸口进；事后对重复记录稽核。</li>
+</ul>
+<h2>Q2(a) 逻辑详细部署图找三个错 · 6 分 · T4</h2>
+<p><strong>应翻页：</strong> T4 清单（四个维度）p.13，PAST3 Q2(a) 范文 p.56</p>
+<table>
+<thead>
+<tr>
+<th>识别</th>
+<th>纠正</th>
+<th>论证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sports <strong>没有 Control</strong> 子系统</td>
+<td>加 Sports Control，部署到 Application 节点</td>
+<td>分层要求 Presentation → Control，否则 Sports 界面直接调平台服务或借用 Concerts 控制层，两个应用耦合</td>
+</tr>
+<tr>
+<td>共享的 Seat Map Service 在 Application 节点，只给 Concerts 用的推荐服务在 Platform 节点</td>
+<td>两者对调：座位图放 Platform；推荐放进 Concerts 自己的子系统</td>
+<td>Platform 只放多个应用复用的服务；剧场扩展要复用座位图</td>
+</tr>
+<tr>
+<td>Payment Service <strong>直接调外部支付网关</strong>，且<strong>没有 DMZ</strong></td>
+<td>加 DMZ，只放反向代理 / API 入口；外部调用经 Integration 子系统，Integration 节点部署在<strong>内部区</strong>，经出站代理 / NAT 访问支付网关</td>
+<td>§4 要求 DMZ 反向代理；PCI-DSS 要求支付尽量少接触；集成层隔离外部变化</td>
+</tr>
+<tr>
+<td><strong>一个共用的 Data Subsystem</strong> 给所有服务和主办方</td>
+<td>每服务一个数据存储，按主办方分区 / 租户密钥</td>
+<td>§3 要求多租户隔离、按主办方分区</td>
+</tr>
+</tbody>
+</table>
+<h2>Q2(b) AWS 物理部署 · 7 分 · T6</h2>
+<p><strong>应翻页：</strong> T6 逻辑节点 → AWS p.27，PAST3 Q2(b) 范文 p.57　<strong>分值（推断）：</strong> 图约 3 + 决策约 4</p>
+<p>图：CloudFront + S3（前端、座位图图片）→ <strong>WAF + API Gateway + Cognito</strong>（VPC 外的托管边缘入口，起 DMZ 作用；限流防机器人）→ VPC 两个可用区私有子网：<strong>EKS</strong>（活动、订座、出票、转售服务，HPA）、<strong>Lambda</strong>（出票后通知、看板聚合）、<strong>SQS</strong>（后端缓冲选座 / 下单请求）→ 数据：<strong>ElastiCache</strong>（座位保留 TTL、可用座位缓存、计数）、<strong>DynamoDB</strong>（排队记录、电子票）、<strong>RDS Multi-AZ</strong>（订单、支付、结算）、S3；集成子网经 NAT 访问支付网关和短信。</p>
+<p>决策（至少三个，每个"选了什么 + 为什么 + 满足哪个需求"）：① 边缘用 WAF + API Gateway 限流 + Cognito，挡机器人、统一入口（§4）；② <strong>虚拟等候室</strong>：排队令牌和位置存在 ElastiCache 有序集合（或 DynamoDB），按可控速率发放入场令牌，吸收 10 分钟 50 万人的峰值；后端用 SQS 缓冲选座 / 下单请求，按 5 万 / 分钟扩容；③ 常驻服务用 EKS、事件驱动用 Lambda；④ 多语言持久化 + 按主办方分区满足多租户（§3）。</p>
+<h2>Q3(a) VenueBox 迁移策略 · 4 分 · 超纲预备卡 C</h2>
+<p><strong>应翻页：</strong> 预备卡 C p.10，T17 迁移 p.42　<strong>分值（推断）：</strong> 策略 1 + 理由 2 + 风险 1</p>
+<p>推荐 <strong>Replatform</strong>（或 Rehost）：6 个月内硬件合同到期、国运会前不能出事 → 不做重构。把 Java 单体容器化跑在 EKS / ECS（或先 rehost 到 EC2），数据库迁到 <strong>Amazon RDS for Oracle</strong>（托管备份、多可用区）；之后再用"逐步替换"的方式拆进 TixNow 服务。<strong>理由：</strong> 风险和成本低、见效快、柜台业务不中断；Rearchitect 6 个月做不完。<strong>风险：</strong> Oracle 许可证和兼容性、柜台到云的网络延迟；缓解：先在预发布环境演练、保留回滚方案、用 VPN / 专线。</p>
+<h2>Q3(b) 两个粉丝保留了同一个座位 · 4 分 · T1（数据不一致）</h2>
+<p><strong>应翻页：</strong> 五类症状 p.16，副本判断 p.16</p>
+<table>
+<thead>
+<tr>
+<th>得分点</th>
+<th>要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原因（1.5）</td>
+<td>"一个座位同时只能给一个粉丝"要求 Seat 状态和 SeatHold <strong>一起</strong>变，但它们分在两个服务；BookingManager 查的是<strong>只读副本</strong> SeatReplica，靠事件<strong>最终一致</strong>地更新，副本还没更新时第二个粉丝也通过了检查</td>
+</tr>
+<tr>
+<td>对策（1.5）</td>
+<td>把 SeatHold 和座位状态放进<strong>同一个小聚合</strong>（如 BookingManager 里每个场次座位一个 SeatInventory 聚合，或把 SeatHold 移进 EventManager 的座位聚合），由聚合根在一个事务里检查并设为 held（乐观锁），不再用副本检查；Event 和座位拆开，避免整场活动成一个大聚合</td>
+</tr>
+<tr>
+<td>缺点（1）</td>
+<td>热门座位 / 区域并发冲突增多，部分粉丝收到"已被选"要重选或重试；服务边界变化</td>
+</tr>
+</tbody>
+</table>
+<h2>Q3(c) 支付网关慢 · 4 分 · T17</h2>
+<p><strong>应翻页：</strong> T17 p.42，预备卡 A p.9</p>
+<p>任选两个，每个"措施 + 怎么帮上忙"（各 2 分）：</p>
+<ol>
+<li><strong>超时 + 熔断：</strong> 支付调用设 5 秒左右超时；失败率超过阈值时熔断、快速失败，返回"支付处理中 / 请稍后"，线程不再被堵住，防止级联故障。</li>
+<li><strong>舱壁：</strong> 支付调用用单独的线程池 / 实例，它慢了也不拖垮选座和浏览。</li>
+<li><strong>异步支付 + 幂等键：</strong> 收到支付请求先回 202，经队列调用网关并重试；用<strong>幂等键</strong>防止重复扣款；题目规定 8 分钟规则不能改，所以要在保留期内尽早发起支付，剩余时间不足时提示粉丝（不能延长保留）。</li>
+<li><strong>指数退避重试：</strong> 50 / 100 / 200 ms 递增，避免重试风暴。</li>
+</ol>
+</section>
+<section id="coaching">
+<h1>模拟卷讲解补充：失分点 · 答题技巧 · 图例（2026-11-03 练习记录）</h1>
+<p>手册页码以本次重建后的《考场答题手册》为准：T4 p.13，T2 p.18，T3 Level 3 p.21，T9 p.31。</p>
+<h2>一、模拟卷 1 GreenCharge：薄弱环节（约 28 / 50）</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>薄弱点</th>
+<th>证据</th>
+<th>下次这样做</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>T4 打包部署找错</strong></td>
+<td>Q3(a) 6 分只拿 1–1.5</td>
+<td>先按 §7 核对每个实体属于哪个服务，再逐条查 deploy 线，最后看 boundary 是否在 External Integration 层</td>
+</tr>
+<tr>
+<td>2</td>
+<td>读领域模型的跨框连线</td>
+<td>Q1(b)(ii) 服务认错</td>
+<td>跨服务关联就是题眼，原因里点名这两个服务</td>
+</tr>
+<tr>
+<td>3</td>
+<td>T5 架构图 + 异步设计</td>
+<td>Q2(a)(i)–(iii)、Q2(b) 共 9 分只拿 1.5</td>
+<td>照 T5 组件表画框；(ii) 写同步 + 异步两句；(iii) 写外部状态存储 Redis；LLM 题写 202 + 后台调用 + 超时重试熔断 + 推送</td>
+</tr>
+<tr>
+<td>4</td>
+<td>没锚定案例事实</td>
+<td>Q2(c) 说"每次充电都结算"，附录写的是月度批处理</td>
+<td>理由只用附录原文</td>
+</tr>
+<tr>
+<td>5</td>
+<td>可用性计算与外部依赖</td>
+<td>Q3(c) 没算出 99.25%</td>
+<td>一定写出数值；外部依赖改成第二家并联切换，或异步移出同步路径</td>
+</tr>
+<tr>
+<td>6</td>
+<td>质量属性用词</td>
+<td>把完整性、故障转移都叫 Security</td>
+<td>准确性 = Integrity，故障转移 = Availability</td>
+</tr>
+<tr>
+<td>7</td>
+<td>英文作答</td>
+<td>几乎全中文</td>
+<td>用 <em>Cause / Countermeasure / Drawback</em> 标签 + 短句 + 案例数字</td>
+</tr>
+</tbody>
+</table>
+<h2>二、模拟卷 2 TixNow：Section A 讲解</h2>
+<h3>Q1(a) 最关键的架构方面（2 分）</h3>
+<p><strong>三句话拿满：</strong> 种子 + 双方 + 交互写一句 → 写<strong>一个</strong>方面并带上 §3 的数字 → 加一句"做不到会怎样"。常见失分点：写了两个方面（可扩展性 + 多租户），还套用了 PAST2 的"查看服务从缓存读最新值"。</p>
+<p>The seeds of the platform are event tickets and seats, produced by organisers and venues and consumed by fans through browsing events, joining the on-sale queue, selecting seats and paying; in resale, fans also act as producers.</p>
+<p class="zh">平台的种子是活动门票和座位，由主办方和场馆产生，粉丝通过浏览活动、加入开售队列、选座和付款来使用；转售时粉丝也是生产者。</p>
+<p>The most crucial architectural aspect is the scalability of the on-sale services: 500,000 fans may join the virtual queue in the first 10 minutes and the platform must handle 50,000 seat-selection requests per minute, so the services must be stateless and scale out automatically, keeping 90% of requests within 2 seconds.</p>
+<p class="zh">最关键的架构方面是开售服务的可扩展性：开售头 10 分钟可能有 50 万粉丝进入虚拟队列，平台每分钟要处理 5 万次选座请求，所以服务必须无状态、能自动扩容，保持 90% 的请求在 2 秒内完成。</p>
+<p>The virtual queue absorbs the peak and admits fans at a rate the seat service can handle, and each seat must be held or sold to only one fan, so the system stays fair. If the on-sale fails or sells a seat twice, fans and organisers lose trust and leave the platform.</p>
+<p class="zh">虚拟队列吸收洪峰，按选座服务能承受的速度放人进来；每个座位只能被一个粉丝占座或买下，保证公平。如果开售崩溃或一座两卖，粉丝和主办方会失去信任、离开平台。</p>
+<h3>Q1(b)(i) 类图（5 分）：只过题目点名的 UC2、3、4、6</h3>
+<p><strong>考场快速做法（约 8 分钟）：</strong> ① 每条用例圈 2–3 个名词；② 三条删除规则：外部系统删（SMS、Payment Gateway），属性删（QR 码、8 分钟、面值），同一个人的不同角色合并（买家、卖家都是 Fan，在关联线上标 seller / buyer）；③ 分进服务框，每个实体写 2 个属性，连 6–8 条线并标多重性。分值（推断）：实体与分组 2 + 关系与多重性 2 + 属性 1。</p>
+<p><strong>最值钱的一点：</strong> 已售 / 已保留的状态记在 <strong>EventSeat</strong>（某场活动的某个座位），不记在 Seat 上。Seat 是场馆里固定的位子，周六卖了周日还要卖。EventSeat 和 SeatHold 放在同一个小聚合里，才能守住"一座一人"；这也是 Q3(b) 的答案方向。</p>
+<div class="fig">
+<svg viewBox="0 0 680 432" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Microsoft YaHei" fill="#000">
+<g fill="none" stroke="#000" stroke-width="1">
+<rect x="10" y="10" width="155" height="160"/><rect x="173" y="10" width="155" height="160"/><rect x="336" y="10" width="155" height="160"/><rect x="499" y="10" width="155" height="160"/>
+<rect x="10" y="185" width="155" height="215"/><rect x="173" y="185" width="155" height="215"/><rect x="336" y="185" width="155" height="215"/><rect x="499" y="185" width="155" height="215"/>
+<rect x="22" y="48" width="131" height="32"/><rect x="22" y="86" width="131" height="32"/><rect x="22" y="124" width="131" height="32"/>
+<rect x="185" y="48" width="131" height="32"/><rect x="185" y="86" width="131" height="32"/>
+<rect x="348" y="48" width="131" height="32"/><rect x="348" y="86" width="131" height="32"/>
+<rect x="511" y="48" width="131" height="32"/>
+<rect x="22" y="223" width="131" height="32" stroke-width="2.2"/><rect x="22" y="271" width="131" height="32" stroke-width="2.2"/><rect x="22" y="311" width="131" height="32"/><rect x="22" y="361" width="131" height="32"/>
+<rect x="185" y="223" width="131" height="32"/>
+<rect x="348" y="223" width="131" height="32"/><rect x="348" y="261" width="131" height="32"/>
+<rect x="511" y="223" width="131" height="32"/>
+<line x1="87" y1="255" x2="87" y2="271"/><line x1="87" y1="343" x2="87" y2="361"/>
+</g>
+<polygon points="87,255 83,260 87,265 91,260" fill="#000"/>
+<polygon points="87,343 83,348 87,353 91,348" fill="#000"/>
+<g font-size="10" text-anchor="middle">
+<text x="87" y="24">«service»</text><text x="250" y="24">«service»</text><text x="413" y="24">«service»</text><text x="576" y="24">«service»</text>
+<text x="87" y="199">«service»</text><text x="250" y="199">«service»</text><text x="413" y="199">«service»</text><text x="576" y="199">«service»</text>
+</g>
+<g font-size="12" font-weight="700" text-anchor="middle">
+<text x="87" y="39">UserManager</text><text x="250" y="39">VenueManager</text><text x="413" y="39">EventManager</text><text x="576" y="39">QueueManager</text>
+<text x="87" y="214">BookingManager</text><text x="250" y="214">PaymentManager</text><text x="413" y="214">TicketManager</text><text x="576" y="214">ResaleManager</text>
+</g>
+<g font-size="11" text-anchor="middle">
+<text x="87" y="61" font-weight="700">Fan</text><text x="87" y="75">fanId, name</text>
+<text x="87" y="99" font-weight="700">OrganiserAdmin</text><text x="87" y="113">adminId, orgId</text>
+<text x="87" y="137" font-weight="700">Organiser（租户）</text><text x="87" y="151">orgId, name</text>
+<text x="250" y="61" font-weight="700">Venue</text><text x="250" y="75">venueId, name</text>
+<text x="250" y="99" font-weight="700">Seat</text><text x="250" y="113">row, number</text>
+<text x="413" y="61" font-weight="700">Event</text><text x="413" y="75">date, category</text>
+<text x="413" y="99" font-weight="700">PriceCategory</text><text x="413" y="113">name, price</text>
+<text x="576" y="61" font-weight="700">QueueEntry</text><text x="576" y="75">position, admittedAt</text>
+<text x="87" y="236" font-weight="700">EventSeat</text><text x="87" y="250">status: avail/held/sold</text>
+<text x="87" y="284" font-weight="700">SeatHold</text><text x="87" y="298">fanId, expiresAt</text>
+<text x="87" y="324" font-weight="700">Order</text><text x="87" y="338">orderNo, status</text>
+<text x="87" y="374" font-weight="700">OrderItem</text><text x="87" y="388">price</text>
+<text x="250" y="236" font-weight="700">Payment</text><text x="250" y="250">amount, status</text>
+<text x="413" y="236" font-weight="700">Ticket</text><text x="413" y="250">ticketNo, qrCode</text>
+<text x="413" y="274" font-weight="700">Wallet</text><text x="413" y="288">fanId</text>
+<text x="576" y="236" font-weight="700">ResaleListing</text><text x="576" y="250">price, status</text>
+</g>
+<g font-size="10"><text x="94" y="267">1 — 0..1</text><text x="94" y="357">1..4</text></g>
+<text x="10" y="418" font-size="10.5">粗框 = EventSeat 与 SeatHold 同一个小聚合（守住"一座一人"）；◆ = 组合。跨服务的关系按 ID 引用，见下表。</text>
+</svg>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>关系（多重性）</th>
+<th>关系（多重性）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Organiser 1 — * Event</td>
+<td>Fan 1 — * Order</td>
+</tr>
+<tr>
+<td>Venue 1 — * Event；Venue 1 — * Seat</td>
+<td>Order ◆ OrderItem（1..4）</td>
+</tr>
+<tr>
+<td>Event 1 — * EventSeat</td>
+<td>OrderItem 1 — 1 Ticket</td>
+</tr>
+<tr>
+<td>EventSeat * — 1 Seat；EventSeat * — 1 PriceCategory</td>
+<td>Order 1 — 1 Payment</td>
+</tr>
+<tr>
+<td>EventSeat ◆ SeatHold（0..1）</td>
+<td>Ticket 1 — 0..1 ResaleListing（seller / buyer 都是 Fan）</td>
+</tr>
+</tbody>
+</table>
+<h3>Q1(b)(ii) 与 Q1(c)(i)：两题的"给谁"不一样</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>(b)(ii) 共享服务（4 分）</th>
+<th>(c)(i) 开放 API（2 分）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>问什么</td>
+<td>平台<strong>内部</strong>被多个应用共用的服务</td>
+<td>从上面挑 <strong>2 个</strong>开放给<strong>外部</strong></td>
+</tr>
+<tr>
+<td>"给谁"指</td>
+<td>四个应用：Concerts、Sports、Resale、Venue</td>
+<td>主办方自己的系统、合作网站等</td>
+</tr>
+<tr>
+<td>写几个</td>
+<td>4–5 个，每个写"给谁用、做什么"</td>
+<td>正好 2 个，生产者、消费者各一个最稳</td>
+</tr>
+</tbody>
+</table>
+<p><strong>(b)(ii) 检查办法：</strong> 每一行都问"点名了几个应用？"只点名一个的不算共享（推荐服务只给 Concerts 用）。</p>
+<table>
+<thead>
+<tr>
+<th>共享服务</th>
+<th>给谁用</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ticket Service</td>
+<td>Concerts、Sports 出票；Resale 作废重发；Venue 验票；以后分时段票</td>
+<td>电子票、票夹、QR 码、验票</td>
+</tr>
+<tr>
+<td>Payment Service</td>
+<td>Concerts、Sports、Resale；以后周边</td>
+<td>对接 Payment Gateway 付款退款；PCI-DSS 集中</td>
+</tr>
+<tr>
+<td>Event Catalogue Service</td>
+<td>Concerts、Sports、Resale；以后剧场</td>
+<td>活动、价格档、不同类型属性</td>
+</tr>
+<tr>
+<td>Virtual Queue Service</td>
+<td>Concerts、Sports；以后限量周边</td>
+<td>排队、按速度放人、限流防机器人（§4）</td>
+</tr>
+<tr>
+<td>Venue &amp; Seat Map Service</td>
+<td>Concerts、Sports、Venue；以后剧场</td>
+<td>场馆和座位图</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ticket Service</strong> – issues e-tickets with QR codes and manages the ticket wallet. It is used by Concerts and Sports to issue tickets, by Resale to invalidate and reissue tickets, and by Venue to validate scans, and it will also serve timed-entry tickets for theatres and museums (Section 2).</p>
+<p class="zh">出票服务：生成带 QR 码的电子票、管理票夹。Concerts 和 Sports 用它出票，Resale 用它作废并重发票，Venue 用它验票；以后剧场和博物馆的分时段票也用它（第 2 节）。</p>
+<p><strong>(c)(i)</strong> I would expose the <strong>Event Management API</strong> to organisers' own ticketing systems (producers): today events and price categories are entered by hand in the portal; with the API their systems can create them directly, which brings more seeds onto the platform. I would also expose the <strong>Event Catalogue API</strong> to media and tourism partner websites (consumers): they can list TixNow events and link fans to the purchase page, which brings more fans.</p>
+<p class="zh">(c)(i) 把活动管理 API 开放给主办方自己的票务系统（生产者），不用在门户手工录入，带来更多种子；把活动目录 API 开放给媒体和旅游合作网站（消费者），展示活动并引流购票，带来更多粉丝。不选 Payment：PCI-DSS，开放给外部反而增加风险。</p>
+<h3>Q1(c)(ii) Level 3 API（4 分）：以 Ticket API 为例</h3>
+<p>常见问题：只有 1 个 GET；<code>/wallets/</code> 没有 ID；status、qr-code 拆成了资源（它们是属性）；写成 <code>ref</code>（应为 <code>rel</code>）；links 里写占位符 <code>{ticket-no}</code>（应为真实值）；没有返回码、输入输出、用途；<strong>links 不随状态变化</strong>。若选 Ticket API，(c)(i) 要写它开放给谁（如场馆自己的闸机系统）。</p>
+<table>
+<thead>
+<tr>
+<th>URI</th>
+<th>HTTP</th>
+<th>输入</th>
+<th>输出（含 links）</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/fans/{fanId}/tickets?status=valid</code></td>
+<td>GET</td>
+<td>查询参数</td>
+<td>200；票列表；links: self、每张票</td>
+<td>查票夹里的有效票</td>
+</tr>
+<tr>
+<td><code>/tickets/{ticketNo}</code></td>
+<td>GET</td>
+<td>—</td>
+<td>200；ticketNo、eventId、seat、status、qrCode；links 随状态变</td>
+<td>查看一张票</td>
+</tr>
+<tr>
+<td><code>/tickets/{ticketNo}/scans</code></td>
+<td>POST</td>
+<td>gateId、scannedAt</td>
+<td>201 Created；已用过 → 409 Conflict</td>
+<td>闸机验票并记录入场</td>
+</tr>
+<tr>
+<td><code>/tickets/{ticketNo}</code></td>
+<td>PATCH</td>
+<td>{"status": "invalidated"}</td>
+<td>200；links: self</td>
+<td>转售成交后作废旧票</td>
+</tr>
+</tbody>
+</table>
+<pre><code>GET /tickets/T-1001 → 200 OK（未使用）
+{ &quot;ticketNo&quot;: &quot;T-1001&quot;, &quot;eventId&quot;: &quot;E-77&quot;, &quot;seat&quot;: &quot;A-12&quot;, &quot;status&quot;: &quot;valid&quot;,
+  &quot;links&quot;: [ {&quot;rel&quot;: &quot;self&quot;,   &quot;href&quot;: &quot;/tickets/T-1001&quot;},
+             {&quot;rel&quot;: &quot;scan&quot;,   &quot;href&quot;: &quot;/tickets/T-1001/scans&quot;},
+             {&quot;rel&quot;: &quot;resell&quot;, &quot;href&quot;: &quot;/resale-listings?ticketNo=T-1001&quot;} ] }
+扫码后 status = &quot;used&quot;：links 只剩 self 和 event（/events/E-77）
+</code></pre>
+<h2>三、模拟卷 2 Q2(a) 图例：初稿 → 纠正后</h2>
+<p>初稿：只有 Internal Zone 1；Application node 上有 Concerts Presentation、Concerts Control、Sports Presentation、Seat Map Service；Platform node 上有 Concert Recommendation、Virtual Queue、Ticket Issuing、Payment Service（直连外部网关）；一个共用的 Data Subsystem；Integration node。</p>
+<div class="fig">
+<svg viewBox="0 0 680 450" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Microsoft YaHei" fill="#000">
+<g fill="none" stroke="#000">
+<rect x="10" y="40" width="130" height="130" stroke-dasharray="5 3"/>
+<rect x="155" y="10" width="410" height="400" stroke-dasharray="5 3"/>
+<rect x="165" y="40" width="190" height="205"/>
+<rect x="365" y="40" width="190" height="205"/>
+<rect x="165" y="260" width="190" height="140"/>
+<rect x="365" y="260" width="190" height="140"/>
+<rect x="20" y="75" width="110" height="56" stroke-width="2.2"/>
+<rect x="175" y="68" width="170" height="28"/><rect x="175" y="102" width="170" height="28"/><rect x="175" y="136" width="170" height="28" stroke-width="2.2"/><rect x="175" y="170" width="170" height="28"/><rect x="175" y="204" width="170" height="28" stroke-width="2.2"/>
+<rect x="375" y="68" width="170" height="28" stroke-width="2.2"/><rect x="375" y="102" width="170" height="28"/><rect x="375" y="136" width="170" height="28"/><rect x="375" y="170" width="170" height="28"/>
+<rect x="175" y="290" width="52" height="40" stroke-width="2.2"/><rect x="234" y="290" width="52" height="40" stroke-width="2.2"/><rect x="293" y="290" width="52" height="40" stroke-width="2.2"/>
+<rect x="375" y="290" width="170" height="28"/>
+<rect x="578" y="300" width="92" height="46"/>
+</g>
+<g stroke="#000" stroke-width="1.2" fill="none">
+<line x1="130" y1="103" x2="163" y2="103"/><line x1="460" y1="198" x2="460" y2="258"/><line x1="545" y1="318" x2="576" y2="322"/>
+</g>
+<polygon points="163,103 157,100 157,106"/><polygon points="460,258 457,252 463,252"/><polygon points="576,322 570,318 569,324"/>
+<g font-size="12" font-weight="700">
+<text x="18" y="58">DMZ（新）</text><text x="163" y="28">Internal Zone</text>
+<text x="173" y="58">Application node</text><text x="373" y="58">Platform node</text>
+<text x="173" y="278">Data Store node（改）</text><text x="373" y="278">Integration node</text>
+</g>
+<g font-size="10.5">
+<text x="75" y="99" text-anchor="middle">反向代理 /</text><text x="75" y="115" text-anchor="middle">API 入口</text>
+<text x="183" y="86">Concerts Presentation</text><text x="183" y="120">Concerts Control</text><text x="183" y="154">Concert Recommendation（移入）</text><text x="183" y="188">Sports Presentation</text><text x="183" y="222">Sports Control（新）</text>
+<text x="383" y="86">Seat Map Service（移入）</text><text x="383" y="120">Virtual Queue Service</text><text x="383" y="154">Ticket Issuing Service</text><text x="383" y="188">Payment Service</text>
+<text x="201" y="314" text-anchor="middle">Booking</text><text x="260" y="314" text-anchor="middle">Ticket</text><text x="319" y="314" text-anchor="middle">Payment</text>
+<text x="175" y="352">每服务一个数据存储</text><text x="175" y="370">按主办方分区（多租户隔离）</text>
+<text x="383" y="308">Integration Subsystem</text><text x="375" y="342">支付经集成层调用，</text><text x="375" y="360">出站代理 / NAT 访问外部</text>
+<text x="624" y="320" text-anchor="middle">Payment</text><text x="624" y="336" text-anchor="middle">Gateway（外部）</text>
+<text x="10" y="430">粗框 = 改动处：（新）新增　（移入）从另一节点移来　（改）改了设计。Payment Service 不再直连外部网关。</text>
+</g>
+</svg>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>错</th>
+<th>纠正</th>
+<th>论证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sports <strong>没有 Control</strong> 子系统</td>
+<td>加 Sports Control，部署到 Application 节点</td>
+<td>分层要求 Presentation → Control；否则 Sports 直接调平台服务或借用 Concerts 控制层</td>
+</tr>
+<tr>
+<td>共享的 Seat Map 在 Application 节点；只给 Concerts 用的推荐服务在 Platform 节点</td>
+<td>两者对调</td>
+<td>Platform 只放多个应用复用的服务；剧场扩展要复用座位图（图注原文）</td>
+</tr>
+<tr>
+<td>Payment Service 直连外部网关，且<strong>没有 DMZ</strong></td>
+<td>加 DMZ 放反向代理；外部调用经 Integration 子系统（内部区，出站代理）</td>
+<td>§4 DMZ 反向代理；PCI-DSS；集成层隔离外部变化</td>
+</tr>
+<tr>
+<td>一个共用的 Data Subsystem</td>
+<td>每服务一个数据存储，按主办方分区</td>
+<td>§3 多租户隔离、按主办方分区</td>
+</tr>
+</tbody>
+</table>
+<p>题目只要三个；最稳的三个是前三行，第四个可作备选。</p>
+</section></main>
+<a class="home-fab" href="../" title="返回资料首页（复习书 · 答题手册 · 模拟卷 · 样卷）"><span aria-hidden="true">⌂</span> 资料首页</a><style>.home-fab{position:fixed;right:20px;bottom:20px;z-index:1000;display:inline-flex;align-items:center;gap:6px;padding:11px 18px;border-radius:999px;background:#1c1917;color:#fff;text-decoration:none;font:600 14px/1 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.28)}.home-fab span{font-size:17px}.home-fab:hover,.home-fab:focus-visible{background:#b45309;color:#fff}@media (max-width:600px){.home-fab{right:14px;bottom:14px;padding:10px 14px}}@media print{.home-fab{display:none}}</style>
+</body></html>

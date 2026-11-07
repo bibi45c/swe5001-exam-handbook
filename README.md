@@ -12,6 +12,7 @@ NUS SWE5001 Architecting Scalable Systems 期末开卷考试（2026-11-03）的�
 |---|---|
 | [`book/`](book/) | **中英对照复习书**（网页版）：13 章知识讲解，每章附小测验（参考答案默认收起，点开查看）；三套样卷逐题精讲；附录含云服务三厂商对照、中英术语索引、老师课上要点 |
 | [`handbook/`](handbook/) | **考场答题手册**（网页版）：考场总纲 → 题型卡 T1–T17 → 三套样卷范文 → 英文写作工具箱 → 学习笔记与易错回顾 → 常用数据、术语词典、索引 |
+| [`mock/`](mock/) | **模拟卷 1–2**（网页版）：两套自编模拟卷中英对照 + 参考答案 + 讲解与图例 |
 | `pdf/SWE5001_中英对照复习书.pdf` | 复习书打印版（149 页，参考答案全部展开） |
 | `pdf/SWE5001_考场答题手册.pdf` | 答题手册打印版（87 页） |
 | `pdf/模拟卷1-2_合订本（中英对照+答案+技巧+图例）.pdf` | 两套自编模拟卷（GreenCharge 充电平台、TixNow 票务平台）：中英对照 + 参考答案 + 失分点 + 类图 / 部署图图例 |
@@ -35,4 +36,4 @@ NUS SWE5001 Architecting Scalable Systems 期末开卷考试（2026-11-03）的�
 
 ## 部署
 
-推送到 `main` 后，GitHub Actions（`.github/workflows/pages.yml`）把首页、`book/`、`handbook/`、`pdf/`、`sample-exams/` 发布到 GitHub Pages。
+推送到 `main` 后，GitHub Actions（`.github/workflows/pages.yml`）把首页、`book/`、`handbook/`、`mock/`、`pdf/`、`sample-exams/` 发布到 GitHub Pages。
