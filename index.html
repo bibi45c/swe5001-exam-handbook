@@ -6,11 +6,7 @@
   <title>SWE5001 复习资料</title>
   <meta name="description" content="NUS SWE5001 开卷考试复习资料：中英对照复习书、考场答题手册、模拟卷与样卷。">
   <style>
-    :root { --bg: #fafaf9; --fg: #1c1917; --muted: #78716c; --line: #e7e5e4; --hover: #f5f5f4; --accent: #b45309; --sec: #1d4ed8; --sec-bg: #eff6ff; --note-bg: #fef9c3; --note-fg: #422006; --note-line: #eab308; }
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) { --bg: #1c1917; --fg: #fafaf9; --muted: #a8a29e; --line: #44403c; --hover: #292524; --accent: #f59e0b; --sec: #93c5fd; --sec-bg: #172554; --note-bg: #3f3305; --note-fg: #fef9c3; --note-line: #facc15; }
-    }
-    :root[data-theme="dark"] { --bg: #1c1917; --fg: #fafaf9; --muted: #a8a29e; --line: #44403c; --hover: #292524; --accent: #f59e0b; --sec: #93c5fd; --sec-bg: #172554; --note-bg: #3f3305; --note-fg: #fef9c3; --note-line: #facc15; }
+    :root { color-scheme: light; --bg: #ffffff; --fg: #1c1917; --muted: #6b6560; --line: #e7e5e4; --hover: #f5f5f4; --accent: #b45309; --sec: #1d4ed8; --sec-bg: #eff6ff; --note-bg: #fefce8; --note-fg: #422006; --note-line: #eab308; --hl: #fde047; }
     * { box-sizing: border-box; }
     body { margin: 0; padding: 48px 16px; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
     main { max-width: 760px; margin: 0 auto; }
@@ -18,7 +14,11 @@
     .lead { margin: 0 0 32px; color: var(--muted); }
     h2 { margin: 40px 0 12px; padding: 6px 12px; font-size: 18px; color: var(--sec); background: var(--sec-bg); border-left: 5px solid var(--sec); border-radius: 4px; }
     .note { margin: 0 0 14px; padding: 12px 14px; background: var(--note-bg); color: var(--note-fg); border-left: 5px solid var(--note-line); border-radius: 4px; font-size: 15px; }
+    .note { position: relative; display: flow-root; }
     .note a { color: inherit; font-weight: 600; }
+    .note mark { background: var(--hl); color: #1c1917; font-weight: 700; padding: 1px 4px; border-radius: 3px; }
+    .lion { position: absolute; left: calc(100% + 56px); top: 50%; transform: translateY(-50%) rotate(2deg); width: 240px; height: auto; border: 3px solid #fff; box-shadow: 0 6px 22px rgba(0,0,0,.18); border-radius: 4px; }
+    @media (max-width: 1400px) { .lion { position: static; float: right; transform: rotate(2deg); width: 104px; margin: 0 0 4px 12px; box-shadow: 0 3px 10px rgba(0,0,0,.15); } }
     ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
     li { border-bottom: 1px solid var(--line); }
     li a { display: grid; gap: 2px; padding: 14px 8px; color: inherit; text-decoration: none; }
@@ -43,7 +43,7 @@
   </ul>
 
   <h2>PDF（打印用）</h2>
-  <p class="note">🖨️ 在 NUS 打印：中央图书馆 CLB 四楼、五楼都有打印机。打黑白记得选 <b>mono-queue</b>，别手滑选成彩色队列 😄　<a href="https://www.google.com/maps/search/?api=1&amp;query=NUS+Central+Library" target="_blank" rel="noopener">在 Google 地图打开 CLB →</a></p>
+  <p class="note"><img class="lion" src="./img/lion.jpg" alt="狮子表情包：我的聪明，你难以想象。">中央图书馆 CLB 四楼、五楼都有打印机。<mark>打黑白记得选 mono-queue</mark>，别手滑选成彩色队列。　<a href="https://www.google.com/maps/search/?api=1&amp;query=NUS+Central+Library" target="_blank" rel="noopener">在 Google 地图打开 CLB →</a></p>
   <ul>
     <li><a href="./pdf/SWE5001_%E4%B8%AD%E8%8B%B1%E5%AF%B9%E7%85%A7%E5%A4%8D%E4%B9%A0%E4%B9%A6.pdf"><span class="title">中英对照复习书.pdf</span><span class="desc">149 页，参考答案全部展开</span></a></li>
     <li><a href="./pdf/SWE5001_%E8%80%83%E5%9C%BA%E7%AD%94%E9%A2%98%E6%89%8B%E5%86%8C.pdf"><span class="title">考场答题手册.pdf</span><span class="desc">87 页</span></a></li>
