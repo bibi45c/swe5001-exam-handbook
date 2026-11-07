@@ -34,6 +34,8 @@ NUS SWE5001 Architecting Scalable Systems 期末开卷考试（2026-11-03）的�
 - `sample-exams/` 里的样卷和参考答案是课程方的材料，版权归课程方所有，这里只供学习交流。
 - 如涉及版权或其他问题，请联系 bibi45gt@gmail.com，我会及时处理或下架。
 
+**如果这些资料对你有用，欢迎关注我的 GitHub [@bibi45c](https://github.com/bibi45c)，并给这个仓库点个 ⭐ Star！**
+
 ## 部署
 
 推送到 `main` 后，GitHub Actions（`.github/workflows/pages.yml`）把首页、`book/`、`handbook/`、`mock/`、`pdf/`、`sample-exams/` 发布到 GitHub Pages。

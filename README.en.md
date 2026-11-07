@@ -34,6 +34,8 @@ Printing: black and white, double-sided, A4.
 - The papers and solution in `sample-exams/` are course materials; copyright belongs to the course provider. They are shared here for study purposes only.
 - For copyright or other concerns, please contact bibi45gt@gmail.com and I will address them or take the material down promptly.
 
+**If these materials help you, please follow me on GitHub ([@bibi45c](https://github.com/bibi45c)) and give this repository a ⭐ star!**
+
 ## Deployment
 
 On every push to `main`, GitHub Actions (`.github/workflows/pages.yml`) publishes the landing page, `book/`, `handbook/`, `mock/`, `pdf/` and `sample-exams/` to GitHub Pages.
