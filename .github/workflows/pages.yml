@@ -21,7 +21,7 @@ jobs:
       - name: Assemble site
         run: |
           mkdir _site
-          cp -r index.html img book handbook mock pdf sample-exams _site/
+          cp -r index.html img book handbook mock pdf sample-exams LICENSE _site/
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

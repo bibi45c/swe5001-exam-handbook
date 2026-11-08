@@ -36,6 +36,17 @@ NUS SWE5001 Architecting Scalable Systems 期末开卷考试（2026-11-03）的�
 
 **如果这些资料对你有用，欢迎关注我的 GitHub [@bibi45c](https://github.com/bibi45c)，并给这个仓库点个 ⭐ Star！**
 
+## 许可
+
+本仓库的原创内容（复习书、考场答题手册、模拟卷、网页）采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans) 许可，全文见 [`LICENSE`](LICENSE)：
+
+- **可以**免费转载、分享、改编；
+- **必须**署名并注明出处 github.com/bibi45c；
+- **禁止**用于任何商业用途（包括收费转发、打包售卖）；
+- 改编后的作品须以相同许可发布。
+
+`sample-exams/` 里的样卷和参考答案是课程方的材料，不在本许可范围内，版权归课程方所有。
+
 ## 部署
 
 推送到 `main` 后，GitHub Actions（`.github/workflows/pages.yml`）把首页、`book/`、`handbook/`、`mock/`、`pdf/`、`sample-exams/` 发布到 GitHub Pages。

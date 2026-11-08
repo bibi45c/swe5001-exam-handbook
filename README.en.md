@@ -36,6 +36,17 @@ Printing: black and white, double-sided, A4.
 
 **If these materials help you, please follow me on GitHub ([@bibi45c](https://github.com/bibi45c)) and give this repository a ⭐ star!**
 
+## License
+
+The original content of this repository (the review book, exam handbook, mock papers and web pages) is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/); see [`LICENSE`](LICENSE) for the full text.
+
+- You **may** share and adapt it for free.
+- You **must** give credit and link to github.com/bibi45c.
+- You **may not** use it for any commercial purpose, including selling it or charging for access.
+- Adaptations must be shared under the same license.
+
+The papers and solution in `sample-exams/` are course materials and are not covered by this license; copyright belongs to the course provider.
+
 ## Deployment
 
 On every push to `main`, GitHub Actions (`.github/workflows/pages.yml`) publishes the landing page, `book/`, `handbook/`, `mock/`, `pdf/` and `sample-exams/` to GitHub Pages.
