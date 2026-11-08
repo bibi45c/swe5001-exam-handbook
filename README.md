@@ -4,7 +4,7 @@
 
 NUS SWE5001 Architecting Scalable Systems 期末开卷考试（2026-11-03）的个人复习资料，覆盖课程三部分：Architecting Software Solutions、Platform Engineering、Cloud Native Solution Design。
 
-**在线阅读：** https://juiceless.cn/swe5001-exam-handbook/
+# 👉 [**在线阅读：juiceless.cn/swe5001-exam-handbook**](https://juiceless.cn/swe5001-exam-handbook/)
 
 ## 内容
 

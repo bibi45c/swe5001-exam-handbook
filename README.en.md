@@ -4,7 +4,7 @@
 
 Personal study materials for the NUS SWE5001 Architecting Scalable Systems final open-book exam (2026-11-03). They cover all three parts of the course: Architecting Software Solutions, Platform Engineering, and Cloud Native Solution Design. Most content is written in Chinese, with key exam sentences in English.
 
-**Read online:** https://juiceless.cn/swe5001-exam-handbook/
+# 👉 [**Read online: juiceless.cn/swe5001-exam-handbook**](https://juiceless.cn/swe5001-exam-handbook/)
 
 ## Contents
 
