@@ -100,6 +100,7 @@
     var ok = v.filter(function (x) { return x !== null; });
     if (!ok.length) return;
     var n = ok.reduce(function (a, b) { return a + b; }, 0);
+    if (!n) return;  // 统计还没出来时不显示 0
     document.getElementById('views-n').textContent = n.toLocaleString('zh-CN');
     document.getElementById('views').hidden = false;
   });
