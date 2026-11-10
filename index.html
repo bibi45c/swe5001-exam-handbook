@@ -33,6 +33,7 @@
     .star a.btn.primary { background: #24292f; border-color: #24292f; color: #fff; }
     .star a.btn:hover { border-color: #b45309; color: #b45309; }
     .star a.btn.primary:hover { background: #b45309; border-color: #b45309; color: #fff; }
+    .views { margin: -22px 0 26px; color: var(--muted); font-size: 13px; }
     footer { margin-top: 40px; color: var(--muted); font-size: 13px; }
     footer a { color: inherit; }
     .corner-links { position: fixed; top: 14px; right: 16px; z-index: 1000; display: flex; gap: 8px; }
@@ -50,6 +51,7 @@
 <main>
   <h1>SWE5001 复习资料</h1>
   <p class="lead">NUS SWE5001 Architecting Scalable Systems 开卷考试的个人复习资料，覆盖 Architecting Software Solutions、Platform Engineering、Cloud Native Solution Design 三部分。</p>
+  <p class="views" id="views" hidden>👀 累计访问 <b id="views-n"></b> 次</p>
   <div class="star"><p>如果这些资料对你有用，欢迎关注我的 GitHub，并给这个仓库点个 ⭐ Star，让更多同学看到～</p><div class="btns"><a class="btn primary" href="https://github.com/bibi45c/swe5001-exam-handbook" target="_blank" rel="noopener">⭐ Star 这个仓库</a><a class="btn" href="https://github.com/bibi45c" target="_blank" rel="noopener">关注 @bibi45c</a></div></div>
 
   <h2>在线阅读</h2>
@@ -84,5 +86,24 @@
     <p><a href="https://github.com/bibi45c/swe5001-exam-handbook">GitHub 仓库</a> · 有用的话欢迎 ⭐ Star 和关注 <a href="https://github.com/bibi45c">@bibi45c</a></p>
   </footer>
 </main>
+<script>window.goatcounter={path:function(){return location.pathname.replace(/\/+$/,'')||'/'}}</script><script id="gc-track" data-goatcounter="https://bibi45.goatcounter.com/count" async src="./js/goatcounter.js"></script>
+<script>
+(function () {
+  var base = 'https://bibi45.goatcounter.com/counter/';
+  var paths = ['/swe5001-exam-handbook', '/swe5001-exam-handbook/book', '/swe5001-exam-handbook/handbook', '/swe5001-exam-handbook/mock'];
+  Promise.all(paths.map(function (p) {
+    return fetch(base + encodeURIComponent(p) + '.json')
+      .then(function (r) { if (!r.ok && r.status !== 404) throw 0; return r.json(); })  // 没访问过的路径返回 404 + 0
+      .then(function (d) { return parseInt(String(d.count).replace(/\D/g, ''), 10) || 0; })
+      .catch(function () { return null; });
+  })).then(function (v) {
+    var ok = v.filter(function (x) { return x !== null; });
+    if (!ok.length) return;
+    var n = ok.reduce(function (a, b) { return a + b; }, 0);
+    document.getElementById('views-n').textContent = n.toLocaleString('zh-CN');
+    document.getElementById('views').hidden = false;
+  });
+})();
+</script>
 </body>
 </html>
