@@ -4896,4 +4896,20 @@ document.querySelectorAll('.qa-t').forEach(t => t.addEventListener('click', () =
   const box = t.closest('.box.drill');
   if (box) box.classList.toggle('ans-open', open);
 }));
+
+// 空闲时逐章预渲染：section.chap 用 content-visibility:auto 加快首屏，
+// 但第一次把滚动条拖到底时会逐章临时排版而卡顿、页面高度也会跳。
+// 载入后利用空闲时间每次渲染一章，全部完成后滚动和拖动都是平滑的。
+(() => {
+  const sections = [...document.querySelectorAll('section.chap')];
+  if (!sections.length || !CSS.supports('content-visibility', 'auto')) return;
+  const idle = window.requestIdleCallback || (cb => setTimeout(() => cb({ timeRemaining: () => 8 }), 60));
+  let i = 0;
+  function step(deadline) {
+    if (i < sections.length && deadline.timeRemaining() > 2) sections[i++].style.contentVisibility = 'visible';
+    if (i < sections.length) idle(step, { timeout: 400 });
+  }
+  const start = () => idle(step, { timeout: 400 });
+  if (document.readyState === 'complete') start(); else addEventListener('load', start);
+})();
 </script><a class="home-fab" href="../" title="返回资料首页（复习书 · 答题手册 · 模拟卷 · 样卷）"><span aria-hidden="true">⌂</span> 资料首页</a><style>.home-fab{position:fixed;right:20px;bottom:20px;z-index:1000;display:inline-flex;align-items:center;gap:6px;padding:11px 18px;border-radius:999px;background:#1c1917;color:#fff;text-decoration:none;font:600 14px/1 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.28)}.home-fab span{font-size:17px}.home-fab:hover,.home-fab:focus-visible{background:#b45309;color:#fff}@media (max-width:600px){.home-fab{right:14px;bottom:14px;padding:10px 14px}}@media print{.home-fab{display:none}}</style><a class="gh-link" href="https://github.com/bibi45c/swe5001-exam-handbook" target="_blank" rel="noopener" title="在 GitHub 查看源文件和 PDF"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a><style>.gh-link{position:fixed;top:14px;right:16px;z-index:1000;display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.94);color:#24292f;border:1px solid #d0d7de;text-decoration:none;font:600 13px/1 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.12);backdrop-filter:blur(4px)}.gh-link:hover,.gh-link:focus-visible{background:#24292f;color:#fff;border-color:#24292f}@media (max-width:600px){.gh-link{top:10px;right:10px;padding:7px}.gh-link span{display:none}}@media print{.gh-link{display:none}}</style><style id="wm-css">body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2147483000;background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='220'%3E%3Cg transform='rotate(-30 150 110)' fill='%23666666' fill-opacity='0.17' font-family='Segoe UI,Microsoft YaHei,sans-serif' text-anchor='middle'%3E%3Ctext x='150' y='108' font-size='17' font-weight='600'%3Egithub.com/bibi45c%3C/text%3E%3Ctext x='150' y='130' font-size='13'%3E免费分享，禁止售卖%3C/text%3E%3C/g%3E%3C/svg%3E");background-repeat:repeat}@media print{body::after{position:fixed}}</style><script>window.goatcounter={path:function(){return location.pathname.replace(/\/+$/,'')||'/'}}</script><script id="gc-track" data-goatcounter="https://bibi45.goatcounter.com/count" async src="../js/goatcounter.js"></script></body></html>
